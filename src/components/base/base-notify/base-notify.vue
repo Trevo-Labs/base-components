@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import './base-notify.css'
 import { CheckCircle2, XCircle, Info, AlertTriangle, X } from 'lucide-vue-next'
-import { useNotify, type NotifyType } from '@/composables/useNotify'
+import { useNotify, type NotifyType } from '@/composables/use-notify'
 
 const { notifications, dismiss } = useNotify()
 

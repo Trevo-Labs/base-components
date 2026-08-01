@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { useConfirm } from './useConfirm'
+import { useConfirm } from './use-confirm'
 
 describe('useConfirm', () => {
   it('requestConfirm expone la petición con los valores por defecto', () => {

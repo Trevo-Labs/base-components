@@ -2,7 +2,7 @@ import { fireEvent, render } from '@testing-library/vue'
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { nextTick } from 'vue'
 import BaseNotify from './base-notify.vue'
-import { useNotify } from '@/composables/useNotify'
+import { useNotify } from '@/composables/use-notify'
 
 describe('BaseNotify', () => {
   beforeEach(() => {

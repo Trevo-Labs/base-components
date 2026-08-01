@@ -58,7 +58,7 @@ notify.info('Sincronizando…', { duration: 0 }) // 0 = no se cierra sola</code>
 import { reactive } from 'vue'
 import BaseNotify from './base-notify.vue'
 import BaseButton from '../base-button/base-button.vue'
-import { useNotify, type NotifyType } from '@/composables/useNotify'
+import { useNotify, type NotifyType } from '@/composables/use-notify'
 
 const notify = useNotify()
 

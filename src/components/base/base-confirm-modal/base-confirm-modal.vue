@@ -25,7 +25,7 @@
 import './base-confirm-modal.css'
 import BaseButton from '../base-button/base-button.vue'
 import BaseModal from '../base-modal/base-modal.vue'
-import { useConfirm } from '@/composables/useConfirm'
+import { useConfirm } from '@/composables/use-confirm'
 
 const { current, resolveConfirm } = useConfirm()
 

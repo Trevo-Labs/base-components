@@ -2,7 +2,7 @@ import { fireEvent, render } from '@testing-library/vue'
 import { describe, it, expect, afterEach } from 'vitest'
 
 import BaseConfirmModal from './base-confirm-modal.vue'
-import { useConfirm } from '@/composables/useConfirm'
+import { useConfirm } from '@/composables/use-confirm'
 
 const { current, requestConfirm, resolveConfirm } = useConfirm()
 

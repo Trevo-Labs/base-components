@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
-import { useNotify } from './useNotify'
+import { useNotify } from './use-notify'
 
 describe('useNotify', () => {
   beforeEach(() => {

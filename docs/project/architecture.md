@@ -30,7 +30,7 @@ src/
 │  └─ histoire.css          ajustes solo para el sandbox de Histoire
 ├─ components/base/         un componente por carpeta
 │  └─ internal/             piezas internas de otros componentes
-├─ composables/             useNotify, useConfirm
+├─ composables/             use-notify.ts, use-confirm.ts
 ├─ router/index.ts          router mínimo
 ├─ views/home-view/         vista de arranque (bórrala en un proyecto real)
 ├─ histoire.setup.ts        setup de Histoire (instala el router de pega)

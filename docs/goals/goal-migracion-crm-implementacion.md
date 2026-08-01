@@ -22,6 +22,10 @@ independiente, con Histoire como catálogo. Sin perder funcionalidad y sin compo
 
 Además: `useNotify` y `useConfirm` (con sus tests), y los cuatro CSS de `assets/css`.
 
+> Los nombres de archivo de esta tabla son los que tenían **en el CRM**. En este repo los
+> composables pasaron a kebab-case (`use-notify.ts`, `use-confirm.ts`) al fijar las
+> convenciones con `/neo init` el 1/8/2026.
+
 ## Dependencias del CRM que se encontraron y cómo se resolvieron
 
 | Qué                                        | Dónde                                   | Solución                                                                 |

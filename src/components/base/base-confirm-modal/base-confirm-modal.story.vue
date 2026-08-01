@@ -49,7 +49,7 @@ const ok = await requestConfirm({
 import { reactive, ref } from 'vue'
 import BaseConfirmModal from './base-confirm-modal.vue'
 import BaseButton from '../base-button/base-button.vue'
-import { useConfirm } from '@/composables/useConfirm'
+import { useConfirm } from '@/composables/use-confirm'
 
 const { requestConfirm } = useConfirm()
 const respuesta = ref<boolean | null>(null)
