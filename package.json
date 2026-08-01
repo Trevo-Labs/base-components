@@ -1,0 +1,46 @@
+{
+  "name": "base-components",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "vue-tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,vue,css}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,vue,css}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "story:dev": "histoire dev",
+    "story:build": "histoire build",
+    "story:preview": "histoire preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/jetbrains-mono": "^5.2.8",
+    "lucide-vue-next": "^1.0.0",
+    "vue": "^3.5.32",
+    "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "@histoire/plugin-vue": "^1.0.0-beta.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/vue": "^8.1.0",
+    "@types/node": "^24.12.3",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vitest/coverage-v8": "^4.1.9",
+    "@vue/tsconfig": "^0.9.1",
+    "flexsearch": "^0.8.212",
+    "histoire": "^1.0.0-beta.1",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.8.3",
+    "typescript": "~6.0.2",
+    "vite": "^7.3.6",
+    "vitest": "^4.1.9",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.3.2",
+    "vue-tsc": "^3.2.7"
+  }
+}

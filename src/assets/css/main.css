@@ -1,0 +1,80 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+@import './variables.css';
+@import './reset.css';
+@import './utilities.css';
+
+/* Forms */
+.form-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.form-stack-sm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.entity-form {
+  display: grid;
+  gap: var(--space-5) var(--space-6);
+}
+
+.entity-form--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.entity-form .field-group,
+.entity-form .base-input,
+.entity-form .input-affix,
+.entity-form .select-wrapper,
+.entity-form .date-wrapper {
+  width: 100%;
+}
+
+.field--wide {
+  grid-column: 1 / -1;
+}
+
+.field-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+@media (max-width: 700px) {
+  .entity-form--2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}

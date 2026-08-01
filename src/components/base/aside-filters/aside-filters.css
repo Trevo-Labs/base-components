@@ -1,0 +1,113 @@
+.aside-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 0.4);
+  display: flex;
+  justify-content: flex-end;
+  z-index: var(--z-overlay);
+
+  .aside-panel {
+    width: 100%;
+    max-width: 360px;
+    height: 100vh;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+
+    .aside-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-5);
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0;
+
+      .aside-title {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-size: var(--text-lg);
+        font-weight: 600;
+      }
+      .aside-close {
+        color: var(--color-text-muted);
+        padding: var(--space-1);
+        border-radius: var(--radius);
+        display: flex;
+        transition:
+          color var(--transition),
+          background var(--transition);
+
+        &:hover {
+          color: var(--color-text);
+          background: var(--color-surface-2);
+        }
+      }
+    }
+
+    .aside-body {
+      padding: var(--space-5);
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+
+      .aside-checks {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+
+      .aside-daterange {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+
+        .aside-daterange-sep {
+          color: var(--color-text-muted);
+          flex-shrink: 0;
+        }
+      }
+
+      .aside-empty {
+        color: var(--color-text-muted);
+        font-size: var(--text-sm);
+      }
+    }
+
+    .aside-footer {
+      padding: var(--space-4) var(--space-5);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      flex-shrink: 0;
+
+      .aside-footer-right {
+        display: flex;
+        gap: var(--space-2);
+      }
+    }
+  }
+}
+
+/* Transición: overlay hace fade, panel entra deslizando desde la derecha. */
+.aside-enter-active,
+.aside-leave-active {
+  transition: opacity var(--transition);
+}
+.aside-enter-active .aside-panel,
+.aside-leave-active .aside-panel {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.aside-enter-from,
+.aside-leave-to {
+  opacity: 0;
+}
+.aside-enter-from .aside-panel,
+.aside-leave-to .aside-panel {
+  transform: translateX(100%);
+}

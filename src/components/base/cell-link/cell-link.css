@@ -1,0 +1,18 @@
+.cell-link {
+  /* El borde/subrayado debe llegar solo hasta el texto, no ocupar todo el
+     ancho del contenedor (importa cuando el padre es flex/grid y lo estira). */
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  align-self: flex-start;
+  color: inherit;
+  border-bottom: 1px solid transparent;
+  transition:
+    color var(--transition),
+    border-color var(--transition);
+
+  &:hover {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+  }
+}

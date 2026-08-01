@@ -1,0 +1,27 @@
+/* Ajustes solo para el sandbox de Histoire: aire alrededor de cada variante y
+   fondo de app, para que los componentes no queden pegados al borde. */
+.histoire-sandbox body {
+  padding: var(--space-4);
+  background: var(--color-bg);
+}
+
+/* Contenedores de ejemplo dentro de las stories */
+.story-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.story-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.story-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}

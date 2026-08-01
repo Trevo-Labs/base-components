@@ -1,0 +1,25 @@
+.copyable-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  border-radius: var(--radius);
+  padding: 2px var(--space-1);
+  margin: -2px calc(var(--space-1) * -1);
+  transition: background var(--transition);
+
+  &:hover {
+    background: var(--color-surface-2);
+  }
+
+  .copyable__icon {
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+  }
+
+  &.copyable-text--copied .copyable__icon {
+    color: var(--color-success);
+  }
+}

@@ -1,0 +1,17 @@
+node_modules
+dist
+dist-ssr
+coverage
+.histoire
+*.local
+.DS_Store
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Logs
+logs
+*.log
+npm-debug.log*

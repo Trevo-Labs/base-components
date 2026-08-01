@@ -1,0 +1,76 @@
+.pwa-banner {
+  position: fixed;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-overlay);
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  width: 480px;
+  max-width: calc(100vw - var(--space-6));
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+
+  .pwa-banner-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pwa-banner-title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .pwa-banner-sub {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .pwa-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-left: auto;
+  }
+
+  .pwa-banner-btn {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: #fff;
+    background: var(--color-primary);
+    padding: 10px 24px;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    transition: background var(--transition);
+
+    &:hover {
+      background: var(--color-primary-dark);
+    }
+  }
+}
+
+/* Entrada/salida suave desde abajo */
+.pwa-banner-enter-active,
+.pwa-banner-leave-active {
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
+}
+.pwa-banner-enter-from,
+.pwa-banner-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pwa-banner-enter-active,
+  .pwa-banner-leave-active {
+    transition: none;
+  }
+}

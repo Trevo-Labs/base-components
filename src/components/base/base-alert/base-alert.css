@@ -1,0 +1,54 @@
+.base-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  border-left: 3px solid;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+
+  /* El color de acento (borde, icono, título) lo fija cada variante vía --alert-accent;
+     el cuerpo del texto queda en color-text para máxima legibilidad. */
+  border-left-color: var(--alert-accent);
+  background: var(--alert-bg);
+
+  .alert-icon {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .alert-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .alert-title {
+    font-weight: 600;
+  }
+  .alert-content {
+    color: var(--color-text);
+  }
+
+  &.base-alert--success {
+    --alert-accent: var(--color-success);
+    --alert-bg: var(--color-success-light);
+  }
+  &.base-alert--warning {
+    --alert-accent: var(--color-warning);
+    --alert-bg: var(--color-warning-light);
+  }
+  &.base-alert--error {
+    --alert-accent: var(--color-danger);
+    --alert-bg: var(--color-danger-light);
+  }
+  &.base-alert--info {
+    --alert-accent: var(--color-info);
+    --alert-bg: var(--color-info-light);
+  }
+}
+
+.alert-icon,
+.alert-title {
+  color: var(--alert-accent);
+}
