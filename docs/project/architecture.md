@@ -50,31 +50,61 @@ base-button/
 └─ base-button.story.vue    story de Histoire
 ```
 
-`base-data-grid` añade `datagrid.filters.ts` (tipos y utilidades de filtrado) y
+`base-data-grid` añade `datagrid-filters.ts` (tipos y utilidades de filtrado) y
 `base-data-grid.md` (documentación larga del componente). `pwa-update-banner` añade su `.md`
 con las instrucciones para conectarlo a un service worker.
 
 ## Piezas globales
 
-Tres componentes se montan **una sola vez** en la raíz de la app (`app/app.vue`) y se controlan
+Dos componentes se montan **una sola vez** en la raíz de la app (`app/app.vue`) y se controlan
 desde cualquier sitio con su composable:
 
-| Componente          | Composable   | Uso                                    |
-| ------------------- | ------------ | -------------------------------------- |
-| `base-notify`       | `useNotify`  | `notify.success('Guardado')`           |
-| `base-confirm-modal`| `useConfirm` | `await requestConfirm({ title: … })`   |
+| Componente           | Composable                      | Uso                                  |
+| -------------------- | ------------------------------- | ------------------------------------ |
+| `base-notify`        | `useNotify` (`use-notify.ts`)   | `notify.success('Guardado')`         |
+| `base-confirm-modal` | `useConfirm` (`use-confirm.ts`) | `await requestConfirm({ title: … })` |
 
 Los dos composables guardan su estado **fuera** de la función, así que son singletons de verdad:
 todos los componentes comparten la misma pila de notificaciones y la misma cola de confirmación.
 
 ## Dependencias externas
 
-| Paquete                        | Para qué                                    |
-| ------------------------------ | ------------------------------------------- |
-| `vue`                          | —                                           |
-| `vue-router`                   | `CellLink`, `BasePageHeader`, `BaseTabs`    |
-| `lucide-vue-next`              | iconos                                      |
-| `@fontsource-variable/inter`   | tipografía principal                        |
-| `@fontsource-variable/jetbrains-mono` | tipografía monoespaciada             |
+| Paquete                               | Para qué                                 |
+| ------------------------------------- | ---------------------------------------- |
+| `vue`                                 | —                                        |
+| `vue-router`                          | `CellLink`, `BasePageHeader`, `BaseTabs` |
+| `lucide-vue-next`                     | iconos                                   |
+| `@fontsource-variable/inter`          | tipografía principal                     |
+| `@fontsource-variable/jetbrains-mono` | tipografía monoespaciada                 |
 
 Nada más. No hay Pinia, ni cliente HTTP, ni librería de fechas.
+
+## Tengo que añadir X, ¿dónde lo pongo?
+
+| Qué                                              | Dónde                                              |
+| ------------------------------------------------ | -------------------------------------------------- |
+| Un componente reutilizable en cualquier proyecto | `src/components/base/<nombre>/` con sus 4 archivos |
+| Una pieza que solo usa otro componente base      | `src/components/base/internal/<nombre>/`           |
+| Lógica con estado compartida entre componentes   | `src/composables/use-<algo>.ts`                    |
+| Un token nuevo (color, espaciado, radio)         | `src/assets/css/variables.css`                     |
+| Una utilidad CSS que usan varios componentes     | `src/assets/css/utilities.css`                     |
+| Tipos que necesita más de un componente          | El módulo que los origina los exporta              |
+| Documentación larga de un componente             | Un `.md` en la carpeta del componente              |
+
+Y lo que **no** va aquí:
+
+- **Layout de app** (sidebar, header): cada proyecto se monta el suyo. Esta plantilla no lo trae.
+- **Componentes de dominio** (algo que sabe de clientes, facturas o tratos): no son base.
+  Por eso `entity-notes` se quedó en el CRM.
+- **Vistas**: `src/views/home-view/` existe solo como arranque de la app de ejemplo y se borra
+  al empezar un proyecto real.
+
+### La prueba del algodón
+
+Un componente entra en `base/` si pasa las tres:
+
+1. **No sabe nada del negocio.** Ni entidades, ni endpoints, ni permisos.
+2. **Lo usarías igual en tres proyectos distintos** sin tocarlo.
+3. **No arrastra dependencias nuevas** más allá de las cinco de la tabla de arriba.
+
+Si falla alguna, no es base: es un componente del proyecto que lo necesita.

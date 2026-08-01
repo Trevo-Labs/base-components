@@ -67,12 +67,13 @@
 
 <script setup lang="ts">
 import './base-date-picker.css'
-import { ref, computed, inject, useAttrs, useId, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, inject, useAttrs, useId, useTemplateRef } from 'vue'
 import { CalendarDays, CalendarClock } from 'lucide-vue-next'
 import DatePickerCalendar, {
   type DateCell,
 } from '../internal/date-picker-calendar/date-picker-calendar.vue'
 import DatePickerTimeColumns from '../internal/date-picker-time-columns/date-picker-time-columns.vue'
+import { useFloatingPanel } from '@/composables/use-floating-panel'
 
 defineOptions({ inheritAttrs: false })
 
@@ -102,11 +103,30 @@ const injectedId = inject<string | undefined>('baseFieldId', undefined)
 const ownId = useId()
 const id = injectedId ?? ownId
 
-const root = ref<HTMLElement | null>(null)
-const panel = ref<HTMLElement | null>(null)
 const timeColumns = ref<InstanceType<typeof DatePickerTimeColumns> | null>(null)
-const open = ref(false)
-const panelStyle = ref<Record<string, string>>({})
+
+const GAP = 4
+
+const { open, panelStyle, openPanel, close } = useFloatingPanel({
+  triggerEl: useTemplateRef<HTMLElement>('root'),
+  panelEl: useTemplateRef<HTMLElement>('panel'),
+  // Se abre hacia arriba si no cabe abajo, y se ajusta a la izquierda si se
+  // saldría por el borde derecho.
+  position: (r, el): Record<string, string> => {
+    const h = el.offsetHeight
+    const w = el.offsetWidth
+    const opensUp = r.bottom + h + GAP > window.innerHeight && r.top - h - GAP > 0
+    const left = Math.max(GAP, Math.min(r.left, window.innerWidth - w - GAP))
+    return {
+      left: `${left}px`,
+      ...(opensUp
+        ? { bottom: `${window.innerHeight - r.top + GAP}px` }
+        : { top: `${r.bottom + GAP}px` }),
+    }
+  },
+  // Recolocamos al hacer scroll (p.ej. dentro de un modal) en vez de cerrar.
+  onScroll: 'reposition',
+})
 
 // Mes que se está mostrando (primer día del mes visible).
 const viewDate = ref(startOfMonth(props.modelValue ? parseISO(props.modelValue) : new Date()))
@@ -158,45 +178,12 @@ async function toggle() {
   if (props.disabled || props.readonly) return
   if (open.value) {
     close()
-  } else {
-    // Al abrir, muestra el mes del valor seleccionado (o el actual).
-    viewDate.value = startOfMonth(props.modelValue ? parseISO(props.modelValue) : new Date())
-    open.value = true
-    await nextTick()
-    position()
-    if (props.withTime) scrollTimeIntoView()
-    // El panel va teleportado a <body> con position:fixed; si el modal (u otro
-    // contenedor) hace scroll, recolocamos, y cerramos al redimensionar.
-    window.addEventListener('scroll', position, true)
-    window.addEventListener('resize', close)
+    return
   }
-}
-
-function close() {
-  if (!open.value) return
-  open.value = false
-  window.removeEventListener('scroll', position, true)
-  window.removeEventListener('resize', close)
-}
-
-// Posiciona el panel (fixed) respecto al trigger. Se abre hacia arriba si no
-// cabe abajo, y se ajusta a la izquierda si se saldría por el borde derecho.
-function position() {
-  const trigger = root.value
-  const el = panel.value
-  if (!trigger || !el) return
-  const r = trigger.getBoundingClientRect()
-  const GAP = 4
-  const h = el.offsetHeight
-  const w = el.offsetWidth
-  const opensUp = r.bottom + h + GAP > window.innerHeight && r.top - h - GAP > 0
-  const left = Math.max(GAP, Math.min(r.left, window.innerWidth - w - GAP))
-  panelStyle.value = {
-    left: `${left}px`,
-    ...(opensUp
-      ? { bottom: `${window.innerHeight - r.top + GAP}px` }
-      : { top: `${r.bottom + GAP}px` }),
-  }
+  // Al abrir, muestra el mes del valor seleccionado (o el actual).
+  viewDate.value = startOfMonth(props.modelValue ? parseISO(props.modelValue) : new Date())
+  await openPanel()
+  if (props.withTime) scrollTimeIntoView()
 }
 
 function prevMonth() {
@@ -268,20 +255,6 @@ function onTriggerKeydown(e: KeyboardEvent) {
     toggle()
   }
 }
-
-function onClickOutside(e: MouseEvent) {
-  if (!open.value) return
-  const target = e.target as Node
-  // El panel está teleportado fuera de root: cuenta como "dentro".
-  if (root.value?.contains(target) || panel.value?.contains(target)) return
-  close()
-}
-
-onMounted(() => document.addEventListener('click', onClickOutside))
-onBeforeUnmount(() => {
-  document.removeEventListener('click', onClickOutside)
-  close()
-})
 
 // Helpers de fecha en local, sin desfase de zona horaria.
 function parseISO(iso: string): Date {

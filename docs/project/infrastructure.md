@@ -5,17 +5,17 @@ y no consume ningún servicio externo.
 
 ## Stack
 
-| Pieza                   | Versión         | Por qué                                                                 |
-| ----------------------- | --------------- | ----------------------------------------------------------------------- |
-| Vue                     | `^3.5.32`       | Composition API con `<script setup>`.                                    |
-| TypeScript              | `~6.0.2`        | —                                                                        |
-| Vite                    | `^7.3.6`        | **No 8**: Histoire pide Vite `^7.3.0` como peer. Ver `decisions.md`.     |
-| vue-router              | `^5.0.6`        | Lo necesitan `CellLink`, `BasePageHeader` y `BaseTabs`.                  |
-| lucide-vue-next         | `^1.0.0`        | Iconos. **Deprecado** a favor de `@lucide/vue` — está en `TODO.md`.      |
-| Histoire                | `1.0.0-beta.1`  | Catálogo de componentes. Alternativa a Storybook.                        |
-| Vitest + Testing Library| `^4.1.9` / `^8.1.0` | Tests de componente por rol y texto, no por implementación.         |
-| Prettier                | `^3.8.3`        | Sin punto y coma, comillas simples, 100 columnas.                        |
-| Fuentes                 | Inter · JetBrains Mono | Vía `@fontsource-variable/*`, servidas desde el propio bundle.    |
+| Pieza                    | Versión                | Por qué                                                              |
+| ------------------------ | ---------------------- | -------------------------------------------------------------------- |
+| Vue                      | `^3.5.32`              | Composition API con `<script setup>`.                                |
+| TypeScript               | `~6.0.2`               | —                                                                    |
+| Vite                     | `^7.3.6`               | **No 8**: Histoire pide Vite `^7.3.0` como peer. Ver `decisions.md`. |
+| vue-router               | `^5.0.6`               | Lo necesitan `CellLink`, `BasePageHeader` y `BaseTabs`.              |
+| lucide-vue-next          | `^1.0.0`               | Iconos. **Deprecado** a favor de `@lucide/vue` — está en `TODO.md`.  |
+| Histoire                 | `1.0.0-beta.1`         | Catálogo de componentes. Alternativa a Storybook.                    |
+| Vitest + Testing Library | `^4.1.9` / `^8.1.0`    | Tests de componente por rol y texto, no por implementación.          |
+| Prettier                 | `^3.8.3`               | Sin punto y coma, comillas simples, 100 columnas.                    |
+| Fuentes                  | Inter · JetBrains Mono | Vía `@fontsource-variable/*`, servidas desde el propio bundle.       |
 
 No hay Pinia, ni cliente HTTP, ni librería de fechas. Es deliberado: cada proyecto elige
 las suyas.
@@ -25,20 +25,20 @@ las pre-bundlea (buscador y resaltado de código). No se importan desde el códi
 
 ## Scripts
 
-| Script                | Qué hace                                                    |
-| --------------------- | ----------------------------------------------------------- |
-| `npm run dev`         | App de ejemplo en `localhost:5173`.                          |
-| `npm run build`       | `vue-tsc -b` (type-check) + `vite build`. **La verificación real.** |
-| `npm run preview`     | Sirve el build.                                              |
-| `npm run lint`        | `vue-tsc --noEmit`. Ojo: con `files: []` en el tsconfig raíz apenas comprueba nada — usa `npm run build`. |
-| `npm run format`      | Prettier sobre `src/`.                                       |
-| `npm run format:check`| Prettier en modo comprobación.                               |
-| `npm test`            | Vitest, una pasada. **190 tests, 25 archivos.**              |
-| `npm run test:watch`  | Vitest en watch.                                             |
-| `npm run test:coverage`| Cobertura con v8.                                           |
-| `npm run story:dev`   | Histoire en `localhost:6006`. **El catálogo.**               |
-| `npm run story:build` | Build estático del catálogo en `.histoire/dist`.             |
-| `npm run story:preview`| Sirve ese build.                                            |
+| Script                  | Qué hace                                                                                                  |
+| ----------------------- | --------------------------------------------------------------------------------------------------------- |
+| `npm run dev`           | App de ejemplo en `localhost:5173`.                                                                       |
+| `npm run build`         | `vue-tsc -b` (type-check) + `vite build`. **La verificación real.**                                       |
+| `npm run preview`       | Sirve el build.                                                                                           |
+| `npm run lint`          | `vue-tsc --noEmit`. Ojo: con `files: []` en el tsconfig raíz apenas comprueba nada — usa `npm run build`. |
+| `npm run format`        | Prettier sobre `src/`.                                                                                    |
+| `npm run format:check`  | Prettier en modo comprobación.                                                                            |
+| `npm test`              | Vitest, una pasada. **190 tests, 25 archivos.**                                                           |
+| `npm run test:watch`    | Vitest en watch.                                                                                          |
+| `npm run test:coverage` | Cobertura con v8.                                                                                         |
+| `npm run story:dev`     | Histoire en `localhost:6006`. **El catálogo.**                                                            |
+| `npm run story:build`   | Build estático del catálogo en `.histoire/dist`.                                                          |
+| `npm run story:preview` | Sirve ese build.                                                                                          |
 
 ## Entorno
 

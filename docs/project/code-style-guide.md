@@ -65,10 +65,12 @@ demás colgando de ella con **nesting nativo** (sin preprocesador):
 ```css
 .base-box {
   .header {
-    .title { }
+    .title {
+    }
   }
   .body {
-    &.body--flush { }
+    &.body--flush {
+    }
   }
 }
 ```
@@ -98,7 +100,7 @@ Más reglas:
 - Nada de `any`, ni explícito ni implícito.
 - Props y emits siempre tipados.
 - Los tipos que se comparten entre componentes viven en el módulo que los origina y se
-  exportan desde ahí (`datagrid.filters.ts` exporta `FilterConfig`).
+  exportan desde ahí (`datagrid-filters.ts` exporta `FilterConfig`).
 - Evita `as`: normalmente significa que el tipo de origen está mal definido.
 
 ## Imports

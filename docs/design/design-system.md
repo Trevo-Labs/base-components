@@ -5,15 +5,15 @@ tocar ese archivo, no los componentes.
 
 ## Colores
 
-| Token                    | Valor     | Uso                              |
-| ------------------------ | --------- | -------------------------------- |
-| `--color-primary`        | `#3f63bf` | acción principal, enlaces        |
-| `--color-primary-dark`   | `#314e99` | hover del primario               |
-| `--color-primary-light`  | `#e0e7f6` | fondos suaves del primario       |
-| `--color-danger`         | `#cc4747` | destructivo, errores             |
-| `--color-success`        | `#37936a` | confirmaciones                   |
-| `--color-warning`        | `#cc8a2f` | avisos                           |
-| `--color-info`           | `#3792a3` | informativo                      |
+| Token                   | Valor     | Uso                        |
+| ----------------------- | --------- | -------------------------- |
+| `--color-primary`       | `#3f63bf` | acción principal, enlaces  |
+| `--color-primary-dark`  | `#314e99` | hover del primario         |
+| `--color-primary-light` | `#e0e7f6` | fondos suaves del primario |
+| `--color-danger`        | `#cc4747` | destructivo, errores       |
+| `--color-success`       | `#37936a` | confirmaciones             |
+| `--color-warning`       | `#cc8a2f` | avisos                     |
+| `--color-info`          | `#3792a3` | informativo                |
 
 Cada uno tiene su pareja `--color-*-light` para fondos.
 

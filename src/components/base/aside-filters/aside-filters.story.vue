@@ -40,7 +40,7 @@ import {
   emptyFilterValues,
   type FilterConfig,
   type FilterValues,
-} from '../base-data-grid/datagrid.filters'
+} from '../base-data-grid/datagrid-filters'
 
 const filters: FilterConfig[] = [
   { key: 'nombre', label: 'Nombre', type: 'text', accessor: 'nombre' },

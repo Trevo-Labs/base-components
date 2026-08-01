@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { applyFilters, emptyFilterValues, isFilterActive } from './datagrid.filters'
-import type { FilterConfig } from './datagrid.filters'
+import { applyFilters, emptyFilterValues, isFilterActive } from './datagrid-filters'
+import type { FilterConfig } from './datagrid-filters'
 
 // `emptyFilterValues` trabaja con el config sin genérico (como hace el grid vía
 // `filtersBase`); casteamos igual para no propagar el tipo de fila al helper.

@@ -1,18 +1,37 @@
-# TODO
+# TODO — BaseComponents
 
-Lo que tienes que decidir o hacer tú.
+Lo pendiente de **Jordi**. Es la única lista de pendientes del proyecto: no hay
+`code-todo.md` ni ninguna otra en paralelo.
 
-## Decidir
+Aquí solo entra lo que necesita que lo haga o lo decida él. Lo que una herramienta puede
+arreglar sola, lo arregla; no lo apunta.
 
-- [ ] **`lucide-vue-next` está deprecado.** Al instalar avisa: *"Package deprecated. Please use
-      `@lucide/vue` instead"*. Se ha mantenido para no separarse del CRM, pero en una plantilla
-      nueva es deuda desde el día uno. Migrar son 15 imports y un cambio de nombre de paquete.
-      Si lo cambias aquí, plantéate cambiarlo también en el CRM para que no diverjan.
+Lo resuelto se borra, no se tacha — el historial ya está en git.
 
-- [ ] **Histoire va en beta** (`1.0.0-beta.1`, enero 2026) y su peer es Vite 7. Por eso el repo
-      está en Vite 7 y no en 8 como el CRM. Si en algún momento quieres alinear versiones,
-      hay que comprobar antes si Histoire ya soporta Vite 8.
+Formato:
 
-## Hacer
+```
+- [ ] Qué hace falta · dónde · qué se necesita de ti · [YYYY-MM-DD]
+```
 
-- [ ] Decidir si este repo va a un remoto (GitLab/GitHub) o se queda local como plantilla.
+## Cuentas, claves y accesos
+
+- [ ] Crear el repositorio remoto · GitLab o GitHub · decidir cuál y crearlo; el push lo hago yo cuando exista · [2026-08-01]
+
+## Decisiones
+
+- [ ] **`lucide-vue-next` está deprecado** · `package.json` · al instalar avisa de que se use `@lucide/vue`. Se mantuvo para no separarse del CRM, pero en una plantilla nueva es deuda desde el día uno. Son 15 imports y un cambio de nombre de paquete. Si lo cambio aquí, ¿lo cambio también en el CRM para que no diverjan? · [2026-08-01]
+
+- [ ] **Histoire va en beta** (`1.0.0-beta.1`, enero 2026) y su peer es Vite 7 · `package.json` · por eso el repo va en Vite 7 y el CRM en 8. ¿Te vale la divergencia, o prefieres que busque alternativa? · [2026-08-01]
+
+## Cambios que hay que aprobar
+
+Ninguno ahora mismo.
+
+## Bugs
+
+Ninguno detectado.
+
+## Diseño y contenido
+
+Ninguno ahora mismo.

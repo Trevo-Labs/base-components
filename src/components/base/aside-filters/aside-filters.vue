@@ -134,7 +134,7 @@ import {
   type FilterValue,
   type DateRange,
   type NumberRange,
-} from '../base-data-grid/datagrid.filters'
+} from '../base-data-grid/datagrid-filters'
 
 const props = defineProps<{
   modelValue: boolean

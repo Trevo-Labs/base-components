@@ -8,7 +8,7 @@ lateral (`AsideFilters`).
 Ficheros relacionados:
 
 - `base-data-grid.vue` — el componente.
-- `datagrid.filters.ts` — tipos (`FilterConfig`, `FilterOption`) y lógica de filtrado.
+- `datagrid-filters.ts` — tipos (`FilterConfig`, `FilterOption`) y lógica de filtrado.
 - `../aside-filters/aside-filters.vue` — panel lateral deslizante con los controles de filtro.
 
 ---
@@ -120,7 +120,7 @@ Cada filtro es un objeto `FilterConfig<TipoFila>`. **Tipa siempre el array con e
 de la fila** para que los slots `#cell-*` conserven el tipado de `row`:
 
 ```ts
-import type { FilterConfig } from '@/components/base/base-data-grid/datagrid.filters'
+import type { FilterConfig } from '@/components/base/base-data-grid/datagrid-filters'
 import type { Cobro } from '@/types'   // el tipo de tu fila
 
 const filters: FilterConfig<Cobro>[] = [

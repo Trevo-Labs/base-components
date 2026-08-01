@@ -5,7 +5,8 @@ import {
   emptyFilterValues,
   type FilterConfig,
   type FilterValues,
-} from '../base-data-grid/datagrid.filters'
+} from '../base-data-grid/datagrid-filters'
+import { firstPayload } from '@/test-utils'
 
 // Tres tipos de filtro representativos: texto, select y multiselect (checkboxes).
 const filters: FilterConfig[] = [
@@ -73,7 +74,7 @@ describe('AsideFilters', () => {
     await fireEvent.update(input, 'Ana')
     await fireEvent.click(getByText('Filtrar'))
 
-    expect(emitted().apply?.[0][0]).toMatchObject({ nombre: 'Ana' })
+    expect(firstPayload<FilterValues>(emitted(), 'apply')).toMatchObject({ nombre: 'Ana' })
     // Al aplicar también se cierra el panel.
     expect(emitted()['update:modelValue']?.[0]).toEqual([false])
   })
@@ -85,7 +86,7 @@ describe('AsideFilters', () => {
     await fireEvent.update(select, 'baja')
     await fireEvent.click(getByText('Filtrar'))
 
-    expect(emitted().apply?.[0][0]).toMatchObject({ estado: 'baja' })
+    expect(firstPayload<FilterValues>(emitted(), 'apply')).toMatchObject({ estado: 'baja' })
   })
 
   it('filtro multiselect: al marcar una opción y pulsar "Filtrar" emite el array', async () => {
@@ -94,7 +95,7 @@ describe('AsideFilters', () => {
     await fireEvent.click(getByLabelText('VIP'))
     await fireEvent.click(getByText('Filtrar'))
 
-    expect(emitted().apply?.[0][0]).toMatchObject({ tags: ['vip'] })
+    expect(firstPayload<FilterValues>(emitted(), 'apply')).toMatchObject({ tags: ['vip'] })
   })
 
   it('el botón "Limpiar" resetea los filtros antes de aplicar', async () => {
@@ -111,7 +112,11 @@ describe('AsideFilters', () => {
     await fireEvent.click(getByText('Limpiar'))
     await fireEvent.click(getByText('Filtrar'))
 
-    expect(emitted().apply?.[0][0]).toEqual({ nombre: '', estado: '', tags: [] })
+    expect(firstPayload<FilterValues>(emitted(), 'apply')).toEqual({
+      nombre: '',
+      estado: '',
+      tags: [],
+    })
   })
 
   it('el botón "Cancelar" cierra el panel sin emitir "apply"', async () => {

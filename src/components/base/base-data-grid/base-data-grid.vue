@@ -186,7 +186,7 @@
 
 <script setup lang="ts" generic="T">
 import './base-data-grid.css'
-import { computed, getCurrentInstance, ref, useId, watch, useSlots } from 'vue'
+import { computed, getCurrentInstance, ref, useSlots } from 'vue'
 import type { Directive } from 'vue'
 import {
   X,
@@ -207,8 +207,10 @@ import {
   type FilterConfig,
   type FilterValues,
   type Accessor,
-} from './datagrid.filters'
+} from './datagrid-filters'
 import BaseCheckbox from '../base-checkbox/base-checkbox.vue'
+import { useGridSort } from './use-grid-sort'
+import { useGridPagination } from './use-grid-pagination'
 
 defineOptions({ inheritAttrs: false })
 
@@ -236,12 +238,6 @@ interface Column {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sortable?: boolean | ((row: any) => unknown)
-}
-
-type SortDir = 'asc' | 'desc'
-interface SortState {
-  key: string | null
-  dir: SortDir
 }
 
 // Pone `title` con el texto solo cuando el contenido está truncado por overflow,
@@ -324,92 +320,25 @@ const filteredRows = computed(() =>
 )
 
 // ── Ordenación por columna ──────────────────────────────────────────────────
-const sortState = ref<SortState>({ key: null, dir: 'asc' })
-
-function isSortable(col: Column): boolean {
-  return !!col.sortable
-}
-
-/** Clic en cabecera: cicla asc → desc → sin orden para esa columna. */
-function toggleSort(col: Column) {
-  if (sortState.value.key !== col.key) {
-    sortState.value = { key: col.key, dir: 'asc' }
-  } else if (sortState.value.dir === 'asc') {
-    sortState.value = { key: col.key, dir: 'desc' }
-  } else {
-    sortState.value = { key: null, dir: 'asc' }
-  }
-}
-
-function ariaSort(col: Column): 'ascending' | 'descending' | 'none' | undefined {
-  if (!isSortable(col)) return undefined
-  if (sortState.value.key !== col.key) return 'none'
-  return sortState.value.dir === 'asc' ? 'ascending' : 'descending'
-}
-
-/** Valor por el que se compara una fila en la columna activa. */
-function sortValue(row: T, col: Column): unknown {
-  return typeof col.sortable === 'function'
-    ? col.sortable(row)
-    : (row as Record<string, unknown>)[col.key]
-}
-
-/** Compara dos valores: numérico si ambos lo son, si no localeCompare por string. */
-function compareValues(a: unknown, b: unknown): number {
-  const aNil = a === null || a === undefined
-  const bNil = b === null || b === undefined
-  if (aNil && bNil) return 0
-  if (aNil) return 1 // nulos al final
-  if (bNil) return -1
-  if (typeof a === 'number' && typeof b === 'number') return a - b
-  if (typeof a === 'boolean' && typeof b === 'boolean') return Number(a) - Number(b)
-  return String(a).localeCompare(String(b), 'es', { numeric: true, sensitivity: 'base' })
-}
-
-/** Filas filtradas y, si hay columna activa, ordenadas. Es la base de la paginación. */
-const sortedRows = computed(() => {
-  const { key, dir } = sortState.value
-  if (!key) return filteredRows.value
-  const col = props.columns.find((c) => c.key === key)
-  if (!col) return filteredRows.value
-  const factor = dir === 'asc' ? 1 : -1
-  return [...filteredRows.value].sort(
-    (a, b) => compareValues(sortValue(a, col), sortValue(b, col)) * factor
-  )
-})
+const { sortState, sortedRows, isSortable, toggleSort, ariaSort } = useGridSort<T>(
+  filteredRows,
+  () => props.columns
+)
 
 // ── Paginación ──────────────────────────────────────────────────────────────
-const pageSizeId = useId()
-const pageSize = ref(props.pageSize)
-const currentPage = ref(1)
-
-const totalPages = computed(() => Math.max(1, Math.ceil(sortedRows.value.length / pageSize.value)))
-
-// El pie solo aparece si hay filas de sobra para justificar más de una página
-// en el tamaño más pequeño disponible.
-const showPagination = computed(() => sortedRows.value.length > Math.min(...props.pageSizeOptions))
-
-/** Filas realmente renderizadas: solo la página actual. */
-const visibleRows = computed(() => {
-  const start = (currentPage.value - 1) * pageSize.value
-  return sortedRows.value.slice(start, start + pageSize.value)
-})
-
-const rangeStart = computed(() =>
-  sortedRows.value.length === 0 ? 0 : (currentPage.value - 1) * pageSize.value + 1
-)
-const rangeEnd = computed(() =>
-  Math.min(currentPage.value * pageSize.value, sortedRows.value.length)
-)
-
-function goToPage(page: number) {
-  currentPage.value = Math.min(Math.max(1, page), totalPages.value)
-}
-
-// Si cambian el tamaño de página, el filtrado o el orden reducen el total por
-// debajo de la página actual, reencuadra a la última página válida (o a la 1).
-watch([pageSize, () => sortedRows.value.length], () => {
-  if (currentPage.value > totalPages.value) currentPage.value = totalPages.value
+const {
+  pageSizeId,
+  pageSize,
+  currentPage,
+  totalPages,
+  showPagination,
+  visibleRows,
+  rangeStart,
+  rangeEnd,
+  goToPage,
+} = useGridPagination<T>(sortedRows, {
+  pageSize: props.pageSize,
+  pageSizeOptions: () => props.pageSizeOptions,
 })
 
 // ── Selección múltiple ─────────────────────────────────────────────────────

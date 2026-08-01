@@ -1,6 +1,7 @@
 import { render, fireEvent } from '@testing-library/vue'
 import { describe, it, expect } from 'vitest'
 import BaseDataGrid from './base-data-grid.vue'
+import { firstPayload } from '@/test-utils'
 
 interface Row {
   id: string
@@ -71,9 +72,7 @@ describe('BaseDataGrid', () => {
     const checkboxes = getAllByRole('checkbox')
     await fireEvent.click(checkboxes[0]) // "seleccionar todo"
 
-    const ev = emitted()['update:selected']
-    expect(ev).toBeTruthy()
-    expect(ev?.[0][0] as unknown[]).toHaveLength(3)
+    expect(firstPayload<Row[]>(emitted(), 'update:selected')).toHaveLength(3)
   })
 
   it('marcar una fila emite solo esa fila', async () => {
@@ -81,7 +80,7 @@ describe('BaseDataGrid', () => {
     const checkboxes = getAllByRole('checkbox')
     await fireEvent.click(checkboxes[1]) // primera fila de datos
 
-    const selected = emitted()['update:selected']?.[0][0] as Row[]
+    const selected = firstPayload<Row[]>(emitted(), 'update:selected')
     expect(selected).toHaveLength(1)
     expect(selected[0].id).toBe('1')
   })

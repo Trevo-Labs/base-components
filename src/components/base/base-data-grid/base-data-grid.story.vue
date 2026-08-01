@@ -72,7 +72,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import BaseDataGrid from './base-data-grid.vue'
-import type { FilterConfig } from './datagrid.filters'
+import type { FilterConfig } from './datagrid-filters'
 import BaseBadge from '../base-badge/base-badge.vue'
 import BaseDropdown from '../base-dropdown/base-dropdown.vue'
 import CellLink from '../cell-link/cell-link.vue'

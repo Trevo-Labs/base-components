@@ -152,13 +152,6 @@
             outline-offset: -2px;
             border-radius: var(--radius);
           }
-          /* Con align-right/center el chevron debe quedar pegado al texto igualmente. */
-          &.grid-align-right {
-            justify-content: flex-end;
-          }
-          &.grid-align-center {
-            justify-content: center;
-          }
         }
       }
       .grid-th-label {
@@ -375,10 +368,4 @@
 .grid-align-right {
   text-align: right;
   justify-content: flex-end;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }

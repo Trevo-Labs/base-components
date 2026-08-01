@@ -1,7 +1,7 @@
 <template>
   <div class="base-dropdown" @click.stop>
     <button
-      ref="triggerEl"
+      ref="trigger"
       type="button"
       class="dropdown-trigger"
       :class="{ 'dropdown-trigger--open': open }"
@@ -17,7 +17,7 @@
 
     <Teleport to="body">
       <Transition name="dropdown">
-        <div v-if="open" ref="menuEl" class="dropdown-menu" role="menu" :style="menuStyle">
+        <div v-if="open" ref="panel" class="dropdown-menu" role="menu" :style="panelStyle">
           <slot :close="close" />
         </div>
       </Transition>
@@ -27,60 +27,38 @@
 
 <script setup lang="ts">
 import './base-dropdown.css'
-import { nextTick, onBeforeUnmount, ref } from 'vue'
+import { onBeforeUnmount, onMounted, useTemplateRef } from 'vue'
 import { MoreVertical } from 'lucide-vue-next'
+import { useFloatingPanel } from '@/composables/use-floating-panel'
 
 withDefaults(defineProps<{ label?: string }>(), { label: 'Acciones' })
 
-const open = ref(false)
-const triggerEl = ref<HTMLElement | null>(null)
-const menuEl = ref<HTMLElement | null>(null)
-const menuStyle = ref<Record<string, string>>({})
-
 const MENU_WIDTH = 200
 const GAP = 4
+// Altura estimada del menú: por debajo de esto no cabe abajo y se abre hacia arriba.
+const MENU_HEIGHT = 240
 
-function position() {
-  const trigger = triggerEl.value
-  if (!trigger) return
-  const r = trigger.getBoundingClientRect()
+const { open, panelStyle, close, toggle } = useFloatingPanel({
+  triggerEl: useTemplateRef<HTMLElement>('trigger'),
+  panelEl: useTemplateRef<HTMLElement>('panel'),
   // Alineado a la derecha del trigger; se abre hacia arriba si no cabe abajo.
-  const left = Math.max(GAP, r.right - MENU_WIDTH)
-  const opensUp = r.bottom + 240 > window.innerHeight && r.top > 240
-  menuStyle.value = opensUp
-    ? { left: `${left}px`, bottom: `${window.innerHeight - r.top + GAP}px` }
-    : { left: `${left}px`, top: `${r.bottom + GAP}px` }
-}
-
-async function toggle() {
-  if (open.value) return close()
-  open.value = true
-  await nextTick()
-  position()
-  window.addEventListener('scroll', close, true)
-  window.addEventListener('resize', close)
-  document.addEventListener('click', onDocClick, true)
-  document.addEventListener('keydown', onKeydown)
-}
-
-function close() {
-  if (!open.value) return
-  open.value = false
-  window.removeEventListener('scroll', close, true)
-  window.removeEventListener('resize', close)
-  document.removeEventListener('click', onDocClick, true)
-  document.removeEventListener('keydown', onKeydown)
-}
-
-function onDocClick(e: MouseEvent) {
-  const target = e.target as Node
-  if (menuEl.value?.contains(target) || triggerEl.value?.contains(target)) return
-  close()
-}
+  position: (r): Record<string, string> => {
+    const left = Math.max(GAP, r.right - MENU_WIDTH)
+    const opensUp = r.bottom + MENU_HEIGHT > window.innerHeight && r.top > MENU_HEIGHT
+    return opensUp
+      ? { left: `${left}px`, bottom: `${window.innerHeight - r.top + GAP}px` }
+      : { left: `${left}px`, top: `${r.bottom + GAP}px` }
+  },
+  // El menú es corto: al hacer scroll se cierra en vez de perseguir al trigger.
+  onScroll: 'close',
+  // El root del componente frena el click, así que hay que escuchar en captura.
+  outsideClickCapture: true,
+})
 
 function onKeydown(e: KeyboardEvent) {
-  if (e.key === 'Escape') close()
+  if (open.value && e.key === 'Escape') close()
 }
 
-onBeforeUnmount(close)
+onMounted(() => document.addEventListener('keydown', onKeydown))
+onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
 </script>

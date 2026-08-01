@@ -28,16 +28,16 @@ Además: `useNotify` y `useConfirm` (con sus tests), y los cuatro CSS de `assets
 
 ## Dependencias del CRM que se encontraron y cómo se resolvieron
 
-| Qué                                        | Dónde                                   | Solución                                                                 |
-| ------------------------------------------ | --------------------------------------- | ------------------------------------------------------------------------ |
-| `@/composables/useNotify`                  | `base-notify`                           | El composable es genérico (estado con `ref`, cero negocio). Se copió tal cual. |
-| `@/composables/useConfirm`                 | `base-confirm-modal`                    | Igual: genérico, se copió tal cual.                                      |
-| `@/components/base/…` (alias)              | `base-confirm-modal`                    | Pasado a rutas relativas, como el resto de componentes.                  |
-| `@/composables/usePwaUpdate` → `virtual:pwa-register` | `pwa-update-banner`          | El banner se reescribió como presentacional. Ver más abajo.              |
-| `@/services/api`, `@/stores/auth`, `@/types` | `entity-notes`                        | No es un componente base. Se dejó fuera.                                 |
-| `vue-router`                               | `cell-link`, `base-page-header`, `base-tabs` | Dependencia legítima: se instala `vue-router` y punto.             |
-| Variables CSS del CRM                      | `variables.css`                         | Se quitaron las categorías de gasto y los estados de cita.               |
-| Clases CSS del CRM                         | `utilities.css`, `main.css`             | Se quitaron `.login-*` y el layout de app (`.app-layout`, `.app-main`, `.page-content`). |
+| Qué                                                   | Dónde                                        | Solución                                                                                 |
+| ----------------------------------------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `@/composables/useNotify`                             | `base-notify`                                | El composable es genérico (estado con `ref`, cero negocio). Se copió tal cual.           |
+| `@/composables/useConfirm`                            | `base-confirm-modal`                         | Igual: genérico, se copió tal cual.                                                      |
+| `@/components/base/…` (alias)                         | `base-confirm-modal`                         | Pasado a rutas relativas, como el resto de componentes.                                  |
+| `@/composables/usePwaUpdate` → `virtual:pwa-register` | `pwa-update-banner`                          | El banner se reescribió como presentacional. Ver más abajo.                              |
+| `@/services/api`, `@/stores/auth`, `@/types`          | `entity-notes`                               | No es un componente base. Se dejó fuera.                                                 |
+| `vue-router`                                          | `cell-link`, `base-page-header`, `base-tabs` | Dependencia legítima: se instala `vue-router` y punto.                                   |
+| Variables CSS del CRM                                 | `variables.css`                              | Se quitaron las categorías de gasto y los estados de cita.                               |
+| Clases CSS del CRM                                    | `utilities.css`, `main.css`                  | Se quitaron `.login-*` y el layout de app (`.app-layout`, `.app-main`, `.page-content`). |
 
 Nada más. El resto de la carpeta ya era independiente: solo `vue` y `lucide-vue-next`.
 
@@ -60,10 +60,10 @@ Como los repos son independientes, aquí se fija Vite 7.3.6 y todo instala limpi
 
 - Los `.spec.ts` estaban sueltos en la raíz de `base/` y en PascalCase. Ahora cada uno vive en la
   carpeta de su componente y en kebab-case: `base-button/base-button.spec.ts`.
-- `datagrid.filters.ts` y su spec pasaron a `base-data-grid/`.
+- `datagrid-filters.ts` y su spec pasaron a `base-data-grid/`.
 - `BaseDataGrid.md` pasó a `base-data-grid/base-data-grid.md`.
 
-Efecto lateral: `aside-filters` importa los tipos de filtros desde `../base-data-grid/datagrid.filters`.
+Efecto lateral: `aside-filters` importa los tipos de filtros desde `../base-data-grid/datagrid-filters`.
 Es un import cruzado entre carpetas, pero `aside-filters` ya era un satélite del grid (el grid lo
 importa a él), así que se asume.
 
@@ -73,7 +73,7 @@ importa a él), así que se asume.
 ## Histoire
 
 - `histoire` + `@histoire/plugin-vue` `1.0.0-beta.1`.
-- `histoire.config.ts` con dos grupos: *Componentes base* e *Internos*.
+- `histoire.config.ts` con dos grupos: _Componentes base_ e _Internos_.
 - `src/histoire.setup.ts` instala un router de memoria: sin él, los tres componentes que usan
   `RouterLink` fallarían al renderizar en el sandbox.
 - **25 stories, 87 variantes.** Una por componente, con "Playground" (controles interactivos)

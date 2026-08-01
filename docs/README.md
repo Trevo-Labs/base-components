@@ -1,25 +1,36 @@
 # Documentación
 
-Índice de lo que hay aquí.
+## Por dónde empezar
 
-## project/
+¿Vas a **tocar código** de este repo? → [project/code-style-guide.md](project/code-style-guide.md)
+y [project/architecture.md](project/architecture.md), en ese orden.
 
-- [architecture.md](project/architecture.md) — cómo está montado el repo y por qué
-- [code-style-guide.md](project/code-style-guide.md) — convenciones de código y CSS
+¿Vas a **arrancar un proyecto nuevo** con esta base? → [guides/uso-en-proyecto-nuevo.md](guides/uso-en-proyecto-nuevo.md).
 
-## design/
+## Índice
 
-- [design-system.md](design/design-system.md) — tokens: colores, espaciado, tipografía, z-index
+| Documento                                                                          | Para qué                                                                 |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [TODO.md](TODO.md)                                                                 | El único TODO, y es de Jordi: decisiones, accesos y cambios que aprobar. |
+| **project/**                                                                       |                                                                          |
+| [architecture.md](project/architecture.md)                                         | El mapa. Responde "tengo que añadir X, ¿dónde lo pongo?".                |
+| [code-style-guide.md](project/code-style-guide.md)                                 | Convenciones de código y CSS. Mandan sobre cualquier default.            |
+| [infrastructure.md](project/infrastructure.md)                                     | Stack con versiones, scripts, entorno, repositorio.                      |
+| [decisions.md](project/decisions.md)                                               | Por qué las cosas son como son. Solo se añade.                           |
+| [refactors/2026-08-01-frontend.md](project/refactors/2026-08-01-frontend.md)       | Qué hizo la pasada de refactor del frontend.                             |
+| **design/**                                                                        |                                                                          |
+| [design-system.md](design/design-system.md)                                        | Tokens: color, espaciado, tipografía, sombras, z-index.                  |
+| **guides/**                                                                        |                                                                          |
+| [uso-en-proyecto-nuevo.md](guides/uso-en-proyecto-nuevo.md)                        | Cómo arrancar un proyecto desde esta base.                               |
+| [histoire-guide.md](guides/histoire-guide.md)                                      | Cómo escribir y ejecutar las stories.                                    |
+| [neo-guide.md](guides/neo-guide.md)                                                | La skill de refactor: comandos y cómo trabaja.                           |
+| **goals/**                                                                         |                                                                          |
+| [goal-migracion-crm-implementacion.md](goals/goal-migracion-crm-implementacion.md) | La migración desde el CRM: qué se trajo, qué se dejó y por qué.          |
 
-## guides/
+## Reglas de esta carpeta
 
-- [uso-en-proyecto-nuevo.md](guides/uso-en-proyecto-nuevo.md) — cómo arrancar un proyecto desde esta base
-- [histoire-guide.md](guides/histoire-guide.md) — cómo escribir y ejecutar las stories
-
-## goals/
-
-- [goal-migracion-crm-implementacion.md](goals/goal-migracion-crm-implementacion.md) — la migración desde el CRM: qué se trajo, qué se dejó y por qué
-
-## Otros
-
-- [TODO.md](TODO.md) — lo que tiene que decidir o hacer Jordi
+- Todos los `.md` viven aquí, **nunca en la raíz**. Única excepción: el `README.md` del repo.
+- **Kebab-case** siempre, salvo `README.md` y `TODO.md`.
+- Se agrupa **por área, no por herramienta**: la carpeta dice de qué habla el documento, no
+  quién lo escribió. Por eso `neo-guide.md` está en `guides/` y no en una carpeta `neo/`.
+- **Un solo TODO**: `TODO.md`. Nada de listas paralelas.

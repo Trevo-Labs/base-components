@@ -76,16 +76,16 @@ import {
   useId,
   useSlots,
   useAttrs,
+  useTemplateRef,
   inject,
   ref,
   computed,
   watch,
-  onMounted,
-  onBeforeUnmount,
   nextTick,
   type VNode,
 } from 'vue'
 import { ChevronDown, Check } from 'lucide-vue-next'
+import { useFloatingPanel } from '@/composables/use-floating-panel'
 
 defineOptions({ inheritAttrs: false })
 
@@ -117,12 +117,35 @@ const ownId = useId()
 const id = injectedId ?? ownId
 const slots = useSlots()
 
-const root = ref<HTMLElement | null>(null)
-const panel = ref<HTMLElement | null>(null)
 const nativeSelect = ref<HTMLSelectElement | null>(null)
-const open = ref(false)
 const activeValue = ref<string | undefined>(undefined)
-const panelStyle = ref<Record<string, string>>({})
+const panel = useTemplateRef<HTMLElement>('panel')
+
+const GAP = 4
+
+const {
+  open,
+  panelStyle,
+  openPanel: openFloating,
+  close,
+} = useFloatingPanel({
+  triggerEl: useTemplateRef<HTMLElement>('root'),
+  panelEl: panel,
+  // El panel toma el ancho del trigger y se abre hacia arriba si no cabe abajo.
+  position: (r, el): Record<string, string> => {
+    const h = el.offsetHeight
+    const opensUp = r.bottom + h + GAP > window.innerHeight && r.top - h - GAP > 0
+    return {
+      left: `${r.left}px`,
+      width: `${r.width}px`,
+      ...(opensUp
+        ? { bottom: `${window.innerHeight - r.top + GAP}px` }
+        : { top: `${r.bottom + GAP}px` }),
+    }
+  },
+  // Recolocamos al hacer scroll (p.ej. dentro de un modal) en vez de cerrar.
+  onScroll: 'reposition',
+})
 
 interface Opt {
   value: string
@@ -171,41 +194,10 @@ function toggle() {
   open.value ? close() : openPanel()
 }
 
-async function openPanel() {
-  open.value = true
+/** Abre el panel dejando activa la opción seleccionada (o la primera). */
+function openPanel() {
   activeValue.value = props.modelValue ?? options.value[0]?.value
-  await nextTick()
-  position()
-  // El panel va teleportado a <body> con position:fixed; recolocamos al hacer
-  // scroll (p.ej. dentro de un modal) y cerramos al redimensionar.
-  window.addEventListener('scroll', position, true)
-  window.addEventListener('resize', close)
-}
-
-function close() {
-  if (!open.value) return
-  open.value = false
-  window.removeEventListener('scroll', position, true)
-  window.removeEventListener('resize', close)
-}
-
-// Posiciona el panel (fixed) respecto al trigger, con su mismo ancho. Se abre
-// hacia arriba si no cabe abajo.
-function position() {
-  const trigger = root.value
-  const el = panel.value
-  if (!trigger || !el) return
-  const r = trigger.getBoundingClientRect()
-  const GAP = 4
-  const h = el.offsetHeight
-  const opensUp = r.bottom + h + GAP > window.innerHeight && r.top - h - GAP > 0
-  panelStyle.value = {
-    left: `${r.left}px`,
-    width: `${r.width}px`,
-    ...(opensUp
-      ? { bottom: `${window.innerHeight - r.top + GAP}px` }
-      : { top: `${r.bottom + GAP}px` }),
-  }
+  return openFloating()
 }
 
 function choose(value: string) {
@@ -248,20 +240,6 @@ function scrollActiveIntoView() {
     panel.value?.querySelector('.select-option--active')?.scrollIntoView?.({ block: 'nearest' })
   })
 }
-
-function onClickOutside(e: MouseEvent) {
-  if (!open.value) return
-  const target = e.target as Node
-  // El panel está teleportado fuera de root: cuenta como "dentro".
-  if (root.value?.contains(target) || panel.value?.contains(target)) return
-  close()
-}
-
-onMounted(() => document.addEventListener('click', onClickOutside))
-onBeforeUnmount(() => {
-  document.removeEventListener('click', onClickOutside)
-  close()
-})
 
 // Si el valor cambia desde fuera, mantiene el nativo sincronizado.
 watch(

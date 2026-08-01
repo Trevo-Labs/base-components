@@ -65,7 +65,8 @@ describe('BaseButton', () => {
   it('invoca el handler de click cuando está activo', async () => {
     const onClick = vi.fn()
     const { getByRole } = render(BaseButton, {
-      props: { onClick },
+      // BaseButton no declara emits: el click va al <button> vía $attrs.
+      attrs: { onClick },
       slots: { default: 'Ok' },
     })
     await fireEvent.click(getByRole('button'))
@@ -75,7 +76,8 @@ describe('BaseButton', () => {
   it('no invoca el handler al hacer click cuando está deshabilitado', () => {
     const onClick = vi.fn()
     const { getByRole } = render(BaseButton, {
-      props: { disabled: true, onClick },
+      props: { disabled: true },
+      attrs: { onClick },
       slots: { default: 'x' },
     })
     const btn = getByRole('button') as HTMLButtonElement
@@ -87,7 +89,8 @@ describe('BaseButton', () => {
   it('no invoca el handler al hacer click cuando está en loading', () => {
     const onClick = vi.fn()
     const { getByRole } = render(BaseButton, {
-      props: { loading: true, onClick },
+      props: { loading: true },
+      attrs: { onClick },
       slots: { default: 'x' },
     })
     const btn = getByRole('button') as HTMLButtonElement
