@@ -23,7 +23,7 @@
     <Variant title="Cabecera personalizada">
       <BaseBox>
         <template #header>
-          <span class="box-title">Facturas</span>
+          <span class="title">Facturas</span>
           <BaseBadge variant="warning">3 pendientes</BaseBadge>
         </template>
         <p>La cabecera admite cualquier contenido vía slot.</p>

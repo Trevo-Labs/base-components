@@ -1,23 +1,23 @@
 <template>
   <Teleport to="body">
     <Transition name="aside">
-      <div v-if="modelValue" class="aside-overlay" @click.self="emit('update:modelValue', false)">
-        <aside class="aside-panel" role="dialog" aria-modal="true" aria-label="Filtros">
-          <header class="aside-header">
-            <h2 class="aside-title">
+      <div
+        v-if="modelValue"
+        class="aside-filters-overlay"
+        @click.self="emit('update:modelValue', false)"
+      >
+        <aside class="panel" role="dialog" aria-modal="true" aria-label="Filtros">
+          <header class="header">
+            <h2 class="title">
               <SlidersHorizontal :size="18" />
               Filtros
             </h2>
-            <button
-              class="aside-close"
-              aria-label="Cerrar"
-              @click="emit('update:modelValue', false)"
-            >
+            <button class="close" aria-label="Cerrar" @click="emit('update:modelValue', false)">
               <X :size="18" />
             </button>
           </header>
 
-          <div class="aside-body">
+          <div class="body">
             <BaseField v-for="filter in filters" :key="filter.key" :label="filter.label">
               <!-- text -->
               <BaseInput
@@ -49,14 +49,14 @@
               </BaseSelect>
 
               <!-- daterange (desde / hasta) -->
-              <div v-else-if="filter.type === 'daterange'" class="aside-daterange">
+              <div v-else-if="filter.type === 'daterange'" class="daterange">
                 <BaseInput
                   :model-value="(draft[filter.key] as DateRange).from"
                   type="date"
                   aria-label="Desde"
                   @update:model-value="(v) => setRange(filter.key, 'from', v as string)"
                 />
-                <span class="aside-daterange-sep">—</span>
+                <span class="daterange-sep">—</span>
                 <BaseInput
                   :model-value="(draft[filter.key] as DateRange).to"
                   type="date"
@@ -66,7 +66,7 @@
               </div>
 
               <!-- numberrange (mín / máx) -->
-              <div v-else-if="filter.type === 'numberrange'" class="aside-daterange">
+              <div v-else-if="filter.type === 'numberrange'" class="daterange">
                 <BaseInput
                   :model-value="(draft[filter.key] as NumberRange).min"
                   type="number"
@@ -74,7 +74,7 @@
                   aria-label="Mínimo"
                   @update:model-value="(v) => setNumberRange(filter.key, 'min', v as string)"
                 />
-                <span class="aside-daterange-sep">—</span>
+                <span class="daterange-sep">—</span>
                 <BaseInput
                   :model-value="(draft[filter.key] as NumberRange).max"
                   type="number"
@@ -85,7 +85,7 @@
               </div>
 
               <!-- multiselect (lista de checkboxes) -->
-              <div v-else-if="filter.type === 'multiselect'" class="aside-checks">
+              <div v-else-if="filter.type === 'multiselect'" class="checks">
                 <BaseCheckbox
                   v-for="opt in resolveOptions(filter)"
                   :key="opt.value"
@@ -97,12 +97,12 @@
               </div>
             </BaseField>
 
-            <p v-if="!filters.length" class="aside-empty">No hay filtros disponibles.</p>
+            <p v-if="!filters.length" class="empty">No hay filtros disponibles.</p>
           </div>
 
-          <footer class="aside-footer">
+          <footer class="footer">
             <BaseButton variant="ghost" @click="limpiar">Limpiar</BaseButton>
-            <div class="aside-footer-right">
+            <div class="footer-right">
               <BaseButton variant="secondary" @click="emit('update:modelValue', false)">
                 Cancelar
               </BaseButton>

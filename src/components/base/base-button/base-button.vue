@@ -10,7 +10,7 @@
     :type="type"
     v-bind="$attrs"
   >
-    <span v-if="loading" class="btn-spinner" />
+    <span v-if="loading" class="spinner" />
     <slot />
   </button>
 </template>

@@ -1,13 +1,13 @@
 <template>
-  <div class="grid-wrapper">
-    <!-- Toolbar superior: buscador + botón de filtros. Actúa como un grid-head
+  <div class="base-data-grid">
+    <!-- Toolbar superior: buscador + botón de filtros. Actúa como un head
          por encima del de columnas. Solo aparece si hay búsqueda o filtros. -->
-    <div v-if="searchable || filters.length" class="grid-toolbar">
-      <div v-if="searchable" class="grid-search">
-        <Search :size="16" class="grid-search-icon" />
+    <div v-if="searchable || filters.length" class="toolbar">
+      <div v-if="searchable" class="search">
+        <Search :size="16" class="search-icon" />
         <input
           v-model="searchQuery"
-          class="grid-search-input"
+          class="search-input"
           type="search"
           :placeholder="searchPlaceholder"
         />
@@ -15,24 +15,24 @@
       <button
         v-if="filters.length"
         type="button"
-        class="grid-filter-btn"
-        :class="{ 'grid-filter-btn--active': activeCount > 0 }"
+        class="filter-btn"
+        :class="{ 'filter-btn--active': activeCount > 0 }"
         @click="showFilters = true"
       >
         <SlidersHorizontal :size="16" />
         Filtros
-        <span v-if="activeCount" class="grid-filter-badge">{{ activeCount }}</span>
+        <span v-if="activeCount" class="filter-badge">{{ activeCount }}</span>
       </button>
     </div>
 
-    <div v-if="loading" class="grid-loading">
-      <span class="grid-spinner" />
+    <div v-if="loading" class="loading">
+      <span class="spinner" />
       <span>Cargando...</span>
     </div>
 
-    <div v-else-if="error" class="grid-error" role="alert">
-      <p class="grid-error-msg">{{ error }}</p>
-      <button type="button" class="grid-error-retry" @click="emit('retry')">Reintentar</button>
+    <div v-else-if="error" class="error" role="alert">
+      <p class="error-msg">{{ error }}</p>
+      <button type="button" class="error-retry" @click="emit('retry')">Reintentar</button>
     </div>
 
     <BaseEmptyState v-else-if="!visibleRows.length">
@@ -41,32 +41,27 @@
       </slot>
     </BaseEmptyState>
 
-    <div v-else class="grid" role="table">
+    <div v-else class="table" role="table">
       <!-- Barra de acciones masivas: sustituye a la cabecera cuando hay selección. -->
-      <div v-if="selectable && selectedCount" class="grid-bulk-bar" role="row">
+      <div v-if="selectable && selectedCount" class="bulk-bar" role="row">
         <BaseCheckbox
           :model-value="allSelected"
           :indeterminate="someSelected"
           @update:model-value="toggleAll"
         />
-        <span class="grid-bulk-count">
+        <span class="bulk-count">
           {{ selectedCount }} seleccionada{{ selectedCount === 1 ? '' : 's' }}
         </span>
-        <div class="grid-bulk-actions">
+        <div class="bulk-actions">
           <slot name="bulk-actions" :rows="selectedRows" :clear="clearSelection" />
         </div>
-        <button
-          type="button"
-          class="grid-bulk-clear"
-          aria-label="Deseleccionar"
-          @click="clearSelection"
-        >
+        <button type="button" class="bulk-clear" aria-label="Deseleccionar" @click="clearSelection">
           <X :size="16" />
         </button>
       </div>
 
-      <div v-else class="grid-head" role="row" :style="gridStyle">
-        <div v-if="selectable" class="grid-th grid-th--check" role="columnheader">
+      <div v-else class="head" role="row" :style="gridStyle">
+        <div v-if="selectable" class="th th--check" role="columnheader">
           <BaseCheckbox
             :model-value="allSelected"
             :indeterminate="someSelected"
@@ -76,8 +71,8 @@
         <div
           v-for="col in columns"
           :key="col.key"
-          class="grid-th"
-          :class="[alignClass(col), { 'grid-th--sortable': isSortable(col) }]"
+          class="th"
+          :class="[alignClass(col), { 'th--sortable': isSortable(col) }]"
           :style="col.maxWidth ? { maxWidth: col.maxWidth } : undefined"
           role="columnheader"
           :aria-sort="ariaSort(col)"
@@ -86,44 +81,39 @@
           @keydown.enter.prevent="isSortable(col) && toggleSort(col)"
           @keydown.space.prevent="isSortable(col) && toggleSort(col)"
         >
-          <span v-ellipsis class="grid-th-label">{{ col.label }}</span>
-          <span v-if="isSortable(col)" class="grid-th-sort" aria-hidden="true">
+          <span v-ellipsis class="th-label">{{ col.label }}</span>
+          <span v-if="isSortable(col)" class="th-sort" aria-hidden="true">
             <ChevronUp
               v-if="sortState.key === col.key && sortState.dir === 'asc'"
               :size="14"
-              class="grid-th-sort-icon grid-th-sort-icon--active"
+              class="th-sort-icon th-sort-icon--active"
             />
             <ChevronDown
               v-else-if="sortState.key === col.key && sortState.dir === 'desc'"
               :size="14"
-              class="grid-th-sort-icon grid-th-sort-icon--active"
+              class="th-sort-icon th-sort-icon--active"
             />
-            <ChevronsUpDown v-else :size="14" class="grid-th-sort-icon" />
+            <ChevronsUpDown v-else :size="14" class="th-sort-icon" />
           </span>
         </div>
-        <div v-if="$slots.actions" class="grid-th grid-th--actions" role="columnheader">
-          Acciones
-        </div>
+        <div v-if="$slots.actions" class="th th--actions" role="columnheader">Acciones</div>
       </div>
 
       <div
         v-for="(row, i) in visibleRows"
         :key="rowKey ? ((row as Record<string, unknown>)[rowKey] as string) : i"
-        :class="[
-          'grid-row',
-          { 'grid-row--clickable': hasRowClick, 'grid-row--selected': isSelected(row) },
-        ]"
+        :class="['row', { 'row--clickable': hasRowClick, 'row--selected': isSelected(row) }]"
         :style="gridStyle"
         role="row"
         @click="emit('row-click', row)"
       >
-        <div v-if="selectable" class="grid-td grid-td--check" role="cell" @click.stop>
+        <div v-if="selectable" class="td td--check" role="cell" @click.stop>
           <BaseCheckbox :model-value="isSelected(row)" @update:model-value="toggleRow(row)" />
         </div>
         <div
           v-for="col in columns"
           :key="col.key"
-          class="grid-td"
+          class="td"
           :class="alignClass(col)"
           :style="col.maxWidth ? { maxWidth: col.maxWidth } : undefined"
           role="cell"
@@ -131,9 +121,9 @@
           <template v-if="$slots[`cell-${col.key}`]">
             <slot :name="`cell-${col.key}`" :row="row" :value="cellValue(row, col.key)" />
           </template>
-          <span v-else v-ellipsis class="grid-td-text">{{ cellValue(row, col.key) ?? '—' }}</span>
+          <span v-else v-ellipsis class="td-text">{{ cellValue(row, col.key) ?? '—' }}</span>
         </div>
-        <div v-if="$slots.actions" class="grid-td grid-td--actions" role="cell" @click.stop>
+        <div v-if="$slots.actions" class="td td--actions" role="cell" @click.stop>
           <slot name="actions" :row="row" />
         </div>
       </div>
@@ -141,30 +131,30 @@
 
     <!-- Pie de paginación: selector de tamaño + navegación. Solo si hay paginación
          activa y suficientes filas como para que tenga sentido mostrarlo. -->
-    <div v-if="showPagination" class="grid-pagination">
-      <div class="grid-pagination-size">
+    <div v-if="showPagination" class="pagination">
+      <div class="pagination-size">
         <label :for="pageSizeId">Filas por página</label>
-        <select :id="pageSizeId" v-model.number="pageSize" class="grid-pagination-select">
+        <select :id="pageSizeId" v-model.number="pageSize" class="pagination-select">
           <option v-for="opt in pageSizeOptions" :key="opt" :value="opt">{{ opt }}</option>
         </select>
       </div>
-      <div class="grid-pagination-nav">
-        <span class="grid-pagination-range">
+      <div class="pagination-nav">
+        <span class="pagination-range">
           {{ rangeStart }}–{{ rangeEnd }} de {{ sortedRows.length }}
         </span>
         <button
           type="button"
-          class="grid-pagination-btn"
+          class="pagination-btn"
           :disabled="currentPage <= 1"
           aria-label="Página anterior"
           @click="goToPage(currentPage - 1)"
         >
           <ChevronLeft :size="16" />
         </button>
-        <span class="grid-pagination-page">{{ currentPage }} / {{ totalPages }}</span>
+        <span class="pagination-page">{{ currentPage }} / {{ totalPages }}</span>
         <button
           type="button"
-          class="grid-pagination-btn"
+          class="pagination-btn"
           :disabled="currentPage >= totalPages"
           aria-label="Página siguiente"
           @click="goToPage(currentPage + 1)"
@@ -400,6 +390,6 @@ const gridStyle = computed(() => {
 })
 
 function alignClass(col: Column) {
-  return col.align && col.align !== 'left' ? `grid-align-${col.align}` : ''
+  return col.align && col.align !== 'left' ? `align-${col.align}` : ''
 }
 </script>

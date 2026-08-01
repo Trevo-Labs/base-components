@@ -40,7 +40,7 @@ describe('BaseButton', () => {
 
   it('no muestra el spinner cuando no está en loading', () => {
     const { container } = render(BaseButton, { slots: { default: 'x' } })
-    expect(container.querySelector('.btn-spinner')).toBeNull()
+    expect(container.querySelector('.spinner')).toBeNull()
   })
 
   it('muestra el spinner, marca la clase loading y deshabilita el botón cuando loading', () => {
@@ -49,7 +49,7 @@ describe('BaseButton', () => {
       slots: { default: 'x' },
     })
     const btn = getByRole('button') as HTMLButtonElement
-    expect(container.querySelector('.btn-spinner')).not.toBeNull()
+    expect(container.querySelector('.spinner')).not.toBeNull()
     expect(btn.classList.contains('base-button--loading')).toBe(true)
     expect(btn.disabled).toBe(true)
   })

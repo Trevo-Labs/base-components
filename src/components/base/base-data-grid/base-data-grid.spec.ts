@@ -107,8 +107,8 @@ describe('BaseDataGrid', () => {
   ]
 
   function nombresEnOrden(container: Element): string[] {
-    return [...container.querySelectorAll('.grid-row')].map(
-      (r) => r.querySelector('.grid-td-text')?.textContent?.trim() ?? ''
+    return [...container.querySelectorAll('.row')].map(
+      (r) => r.querySelector('.td-text')?.textContent?.trim() ?? ''
     )
   }
 
@@ -193,15 +193,15 @@ describe('BaseDataGrid', () => {
       rows: manyRows,
       pageSize: 25,
     })
-    expect(container.querySelectorAll('.grid-row')).toHaveLength(25)
+    expect(container.querySelectorAll('.row')).toHaveLength(25)
     expect(getByText('1–25 de 60')).toBeTruthy()
 
     await fireEvent.click(getByLabelText('Página siguiente'))
-    expect(container.querySelectorAll('.grid-row')).toHaveLength(25)
+    expect(container.querySelectorAll('.row')).toHaveLength(25)
     expect(getByText('26–50 de 60')).toBeTruthy()
 
     await fireEvent.click(getByLabelText('Página siguiente'))
-    expect(container.querySelectorAll('.grid-row')).toHaveLength(10)
+    expect(container.querySelectorAll('.row')).toHaveLength(10)
     expect(getByText('51–60 de 60')).toBeTruthy()
   })
 
@@ -211,7 +211,7 @@ describe('BaseDataGrid', () => {
       pageSize: 25,
     })
     await fireEvent.update(getByLabelText('Filas por página'), '50')
-    expect(container.querySelectorAll('.grid-row')).toHaveLength(50)
+    expect(container.querySelectorAll('.row')).toHaveLength(50)
     expect(getByText('1–50 de 60')).toBeTruthy()
   })
 

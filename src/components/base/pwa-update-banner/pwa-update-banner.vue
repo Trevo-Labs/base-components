@@ -1,12 +1,12 @@
 <template>
-  <Transition name="pwa-banner">
-    <div v-if="modelValue" class="pwa-banner" role="alert">
-      <div class="pwa-banner-text">
-        <span class="pwa-banner-title">{{ title }}</span>
-        <span class="pwa-banner-sub">{{ message }}</span>
+  <Transition name="pwa-update-banner">
+    <div v-if="modelValue" class="pwa-update-banner" role="alert">
+      <div class="text">
+        <span class="title">{{ title }}</span>
+        <span class="sub">{{ message }}</span>
       </div>
-      <div class="pwa-banner-actions">
-        <button class="pwa-banner-btn" @click="emit('update')">{{ actionText }}</button>
+      <div class="actions">
+        <button class="button" @click="emit('update')">{{ actionText }}</button>
       </div>
     </div>
   </Transition>

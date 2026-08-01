@@ -108,5 +108,6 @@ siendo trivial.
 desviada de la norma, propaga la desviación a todos. La paridad con el CRM se pierde, pero el
 CRM es un proyecto cerrado y esto es la base del futuro.
 
-Los composables ya están renombrados. El CSS **todavía no**: la norma está escrita en
-`code-style-guide.md` y el código aún prefija. Se propaga con `/neo fix-css`.
+Ambas cosas están ya aplicadas: los composables se renombraron el mismo día y el CSS se propagó
+a los 25 componentes en la pasada de `/neo fix-css` del 1/8/2026
+([refactors/2026-08-01-css.md](refactors/2026-08-01-css.md)).

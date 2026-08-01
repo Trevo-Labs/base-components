@@ -1,30 +1,30 @@
 <template>
-  <div class="date-calendar">
-    <div class="date-head">
-      <button type="button" class="date-nav" title="Mes anterior" @click="emit('prev-month')">
+  <div class="date-picker-calendar">
+    <div class="head">
+      <button type="button" class="nav" title="Mes anterior" @click="emit('prev-month')">
         <ChevronLeft :size="16" />
       </button>
-      <span class="date-title">{{ monthLabel }}</span>
-      <button type="button" class="date-nav" title="Mes siguiente" @click="emit('next-month')">
+      <span class="title">{{ monthLabel }}</span>
+      <button type="button" class="nav" title="Mes siguiente" @click="emit('next-month')">
         <ChevronRight :size="16" />
       </button>
     </div>
 
-    <div class="date-grid date-weekdays">
-      <span v-for="d in weekdays" :key="d" class="date-weekday">{{ d }}</span>
+    <div class="days weekdays">
+      <span v-for="d in weekdays" :key="d" class="weekday">{{ d }}</span>
     </div>
 
-    <div class="date-grid">
+    <div class="days">
       <button
         v-for="cell in cells"
         :key="cell.iso"
         type="button"
         :class="[
-          'date-day',
+          'day',
           {
-            'date-day--muted': !cell.inMonth,
-            'date-day--today': cell.isToday,
-            'date-day--selected': cell.iso === selectedDate,
+            'day--muted': !cell.inMonth,
+            'day--today': cell.isToday,
+            'day--selected': cell.iso === selectedDate,
           },
         ]"
         @click="emit('choose-day', cell.iso)"

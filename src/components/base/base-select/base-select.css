@@ -1,9 +1,9 @@
-.select-wrapper {
+.base-select {
   position: relative;
   width: 100%;
 
   /* Nativo oculto pero presente en el DOM (a11y + forms + tests) */
-  .select-native {
+  .native {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -14,7 +14,7 @@
     border: 0;
   }
 
-  .select-trigger {
+  .trigger {
     display: flex;
     align-items: center;
     gap: var(--space-2);
@@ -35,7 +35,7 @@
       border-color: var(--color-text-muted);
     }
 
-    &.select-trigger--open,
+    &.trigger--open,
     &:focus-visible {
       border-color: var(--color-primary);
       box-shadow: 0 0 0 3px var(--color-primary-light);
@@ -48,7 +48,7 @@
       cursor: not-allowed;
     }
 
-    &.select-trigger--readonly {
+    &.trigger--readonly {
       background: var(--color-surface-2);
       color: var(--color-text-muted);
       cursor: default;
@@ -60,38 +60,38 @@
       }
     }
 
-    .select-value {
+    .value {
       flex: 1;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      &.select-value--placeholder {
+      &.value--placeholder {
         color: var(--color-text-muted);
       }
     }
 
-    .select-chevron {
+    .chevron {
       flex-shrink: 0;
       color: var(--color-text-muted);
       transition: transform var(--transition);
 
-      &.select-chevron--open {
+      &.chevron--open {
         transform: rotate(180deg);
       }
     }
   }
 
-  &.select-wrapper--error .select-trigger {
+  &.base-select--error .trigger {
     border-color: var(--color-danger);
   }
-  &.select-wrapper--error .select-trigger--open {
+  &.base-select--error .trigger--open {
     box-shadow: 0 0 0 3px var(--color-danger-light);
   }
 }
 
 /* ── Panel (teleportado a <body>, posicionado por JS con position:fixed) ── */
-.select-panel {
+.base-select-panel {
   position: fixed;
   z-index: var(--z-popover);
   max-height: 240px;
@@ -104,7 +104,7 @@
   list-style: none;
   margin: 0;
 
-  .select-option {
+  .option {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -115,26 +115,26 @@
     color: var(--color-text);
     cursor: pointer;
 
-    &.select-option--active {
+    &.option--active {
       background: var(--color-surface-2);
     }
 
-    &.select-option--selected {
+    &.option--selected {
       color: var(--color-primary);
       font-weight: 500;
     }
 
-    &.select-option--selected.select-option--active {
+    &.option--selected.option--active {
       background: var(--color-primary-light);
     }
 
-    .select-option-label {
+    .option-label {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .select-option-check {
+    .option-check {
       flex-shrink: 0;
       color: var(--color-primary);
     }

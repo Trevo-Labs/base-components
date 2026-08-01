@@ -1,4 +1,4 @@
-.pwa-banner {
+.pwa-update-banner {
   position: fixed;
   bottom: var(--space-6);
   left: 50%;
@@ -15,31 +15,31 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 
-  .pwa-banner-text {
+  .text {
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
 
-  .pwa-banner-title {
+  .title {
     font-size: var(--text-lg);
     font-weight: 700;
     color: var(--color-text);
   }
 
-  .pwa-banner-sub {
+  .sub {
     font-size: var(--text-sm);
     color: var(--color-text-muted);
   }
 
-  .pwa-banner-actions {
+  .actions {
     display: flex;
     align-items: center;
     gap: var(--space-2);
     margin-left: auto;
   }
 
-  .pwa-banner-btn {
+  .button {
     font-size: var(--text-base);
     font-weight: 600;
     color: #fff;
@@ -56,21 +56,21 @@
 }
 
 /* Entrada/salida suave desde abajo */
-.pwa-banner-enter-active,
-.pwa-banner-leave-active {
+.pwa-update-banner-enter-active,
+.pwa-update-banner-leave-active {
   transition:
     opacity var(--transition),
     transform var(--transition);
 }
-.pwa-banner-enter-from,
-.pwa-banner-leave-to {
+.pwa-update-banner-enter-from,
+.pwa-update-banner-leave-to {
   opacity: 0;
   transform: translate(-50%, 12px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pwa-banner-enter-active,
-  .pwa-banner-leave-active {
+  .pwa-update-banner-enter-active,
+  .pwa-update-banner-leave-active {
     transition: none;
   }
 }

@@ -1,30 +1,30 @@
 <template>
-  <div class="kanban-wrap">
-    <div v-if="stats?.length" class="kanban-stats">
+  <div class="kanban-board">
+    <div v-if="stats?.length" class="stats">
       <div
         v-for="stat in stats"
         :key="stat.label"
-        :class="['kanban-stat', stat.variant ? `kanban-stat--${stat.variant}` : '']"
+        :class="['stat', stat.variant ? `stat--${stat.variant}` : '']"
       >
-        <span class="kanban-stat-label">{{ stat.label }}</span>
-        <span class="kanban-stat-value">{{ stat.value }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+        <span class="stat-value">{{ stat.value }}</span>
       </div>
     </div>
 
-    <div class="kanban">
+    <div class="board">
       <div
         v-for="col in columns"
         :key="col.key"
-        :class="['kanban-col', col.variant ? `kanban-col--${col.variant}` : '']"
+        :class="['col', col.variant ? `col--${col.variant}` : '']"
       >
-        <div class="kanban-col-header">
-          <span class="kanban-col-nombre">{{ col.label }}</span>
-          <div class="kanban-col-header-end">
-            <span class="kanban-col-count">{{ itemsByColumn[col.key]?.length ?? 0 }}</span>
+        <div class="col-header">
+          <span class="col-name">{{ col.label }}</span>
+          <div class="col-header-end">
+            <span class="col-count">{{ itemsByColumn[col.key]?.length ?? 0 }}</span>
             <button
               v-if="col.removable"
               type="button"
-              class="kanban-col-hide"
+              class="col-hide"
               title="Ocultar columna"
               @click="emit('remove-column', col.key)"
             >
@@ -32,21 +32,21 @@
             </button>
           </div>
         </div>
-        <div class="kanban-col-body" @dragover.prevent @drop="onDrop($event, col.key)">
+        <div class="col-body" @dragover.prevent @drop="onDrop($event, col.key)">
           <div
             v-for="item in itemsByColumn[col.key] ?? []"
             :key="itemKey(item)"
-            :class="['kanban-item', { 'kanban-item--card': card }]"
+            :class="['item', { 'item--card': card }]"
             draggable="true"
             @dragstart="onDragStart($event, itemKey(item))"
             @click="emit('item-click', item)"
           >
             <slot :item="item" />
-            <div v-if="$slots.actions" class="kanban-item-actions" @click.stop>
+            <div v-if="$slots.actions" class="item-actions" @click.stop>
               <slot name="actions" :item="item" />
             </div>
           </div>
-          <div v-if="!itemsByColumn[col.key]?.length" class="kanban-col-empty">
+          <div v-if="!itemsByColumn[col.key]?.length" class="col-empty">
             {{ emptyText }}
           </div>
         </div>

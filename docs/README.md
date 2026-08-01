@@ -18,6 +18,7 @@ y [project/architecture.md](project/architecture.md), en ese orden.
 | [infrastructure.md](project/infrastructure.md)                                     | Stack con versiones, scripts, entorno, repositorio.                      |
 | [decisions.md](project/decisions.md)                                               | Por qué las cosas son como son. Solo se añade.                           |
 | [refactors/2026-08-01-frontend.md](project/refactors/2026-08-01-frontend.md)       | Qué hizo la pasada de refactor del frontend.                             |
+| [refactors/2026-08-01-css.md](project/refactors/2026-08-01-css.md)                 | Qué hizo la pasada de CSS: renombrado de clases de los 25 componentes.   |
 | **design/**                                                                        |                                                                          |
 | [design-system.md](design/design-system.md)                                        | Tokens: color, espaciado, tipografía, sombras, z-index.                  |
 | **guides/**                                                                        |                                                                          |

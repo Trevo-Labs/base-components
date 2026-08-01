@@ -1,9 +1,9 @@
 <template>
   <div :class="['base-alert', `base-alert--${type}`]" role="alert">
-    <component :is="icon" v-if="!hideIcon" :size="18" class="alert-icon" />
-    <div class="alert-body">
-      <p v-if="title" class="alert-title">{{ title }}</p>
-      <div class="alert-content"><slot /></div>
+    <component :is="icon" v-if="!hideIcon" :size="18" class="icon" />
+    <div class="body">
+      <p v-if="title" class="title">{{ title }}</p>
+      <div class="content"><slot /></div>
     </div>
   </div>
 </template>

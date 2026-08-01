@@ -36,7 +36,7 @@ describe('BaseModal', () => {
   it('emite el cierre al hacer click en el backdrop', async () => {
     const { baseElement, emitted } = renderModal()
 
-    const overlay = baseElement.querySelector('.modal-overlay') as HTMLElement
+    const overlay = baseElement.querySelector('.base-modal-overlay') as HTMLElement
     expect(overlay).not.toBeNull()
     await fireEvent.click(overlay)
 
@@ -54,7 +54,7 @@ describe('BaseModal', () => {
   it('no cierra por backdrop cuando closeOnBackdrop es false', async () => {
     const { baseElement, emitted } = renderModal({ closeOnBackdrop: false })
 
-    const overlay = baseElement.querySelector('.modal-overlay') as HTMLElement
+    const overlay = baseElement.querySelector('.base-modal-overlay') as HTMLElement
     await fireEvent.click(overlay)
 
     expect(emitted()['update:modelValue']).toBeUndefined()
@@ -63,10 +63,10 @@ describe('BaseModal', () => {
   it('renderiza el slot footer solo cuando se proporciona', () => {
     const withFooter = renderModal({}, { footer: '<button>Guardar</button>' })
     expect(withFooter.getByText('Guardar')).toBeTruthy()
-    expect(withFooter.baseElement.querySelector('.modal-footer')).not.toBeNull()
+    expect(withFooter.baseElement.querySelector('.footer')).not.toBeNull()
     withFooter.unmount()
 
     const withoutFooter = renderModal()
-    expect(withoutFooter.baseElement.querySelector('.modal-footer')).toBeNull()
+    expect(withoutFooter.baseElement.querySelector('.footer')).toBeNull()
   })
 })

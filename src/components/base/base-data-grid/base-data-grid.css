@@ -1,28 +1,28 @@
-.grid-wrapper {
+.base-data-grid {
   width: 100%;
 
   /* Toolbar superior: buscador + botón de filtros. */
-  .grid-toolbar {
+  .toolbar {
     display: flex;
     align-items: center;
     gap: var(--space-3);
     padding: var(--space-3) var(--space-4);
     border-bottom: 1px solid var(--color-border);
 
-    .grid-search {
+    .search {
       position: relative;
       flex: 1;
       max-width: 360px;
       display: flex;
       align-items: center;
 
-      .grid-search-icon {
+      .search-icon {
         position: absolute;
         left: var(--space-3);
         color: var(--color-text-muted);
         pointer-events: none;
       }
-      .grid-search-input {
+      .search-input {
         width: 100%;
         padding: var(--space-2) var(--space-3) var(--space-2) var(--space-8);
         font-size: var(--text-sm);
@@ -39,7 +39,7 @@
       }
     }
 
-    .grid-filter-btn {
+    .filter-btn {
       display: inline-flex;
       align-items: center;
       gap: var(--space-2);
@@ -58,12 +58,12 @@
       &:hover {
         background: var(--color-surface-2);
       }
-      &.grid-filter-btn--active {
+      &.filter-btn--active {
         border-color: var(--color-primary);
         color: var(--color-primary);
       }
     }
-    .grid-filter-badge {
+    .filter-badge {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -78,11 +78,15 @@
     }
   }
 
-  .grid {
+  .table {
     width: 100%;
+    /* Antes esta clase se llamaba `.grid` y heredaba el `display: grid` de la
+       utilidad global del mismo nombre. Se deja explícito para no cambiar nada
+       ahora que ya no colisionan. */
+    display: grid;
 
     /* Barra de acciones masivas: reemplaza la cabecera cuando hay filas marcadas. */
-    .grid-bulk-bar {
+    .bulk-bar {
       display: flex;
       align-items: center;
       gap: var(--space-3);
@@ -90,18 +94,18 @@
       background: var(--color-primary-light);
       border-bottom: 1px solid var(--color-border);
     }
-    .grid-bulk-count {
+    .bulk-count {
       font-size: var(--text-sm);
       font-weight: 600;
       color: var(--color-primary);
     }
-    .grid-bulk-actions {
+    .bulk-actions {
       display: flex;
       align-items: center;
       gap: var(--space-2);
       margin-left: var(--space-2);
     }
-    .grid-bulk-clear {
+    .bulk-clear {
       display: flex;
       align-items: center;
       margin-left: auto;
@@ -115,11 +119,11 @@
       }
     }
 
-    .grid-head {
+    .head {
       background: var(--color-surface-2);
       border-bottom: 1px solid var(--color-border);
 
-      .grid-th {
+      .th {
         padding: var(--space-3) var(--space-4);
         font-size: var(--text-xs);
         font-weight: 600;
@@ -131,12 +135,12 @@
         text-overflow: ellipsis;
         white-space: nowrap;
 
-        &.grid-th--actions {
+        &.th--actions {
           text-align: right;
         }
 
         /* Cabecera ordenable: label + chevron, clicable. */
-        &.grid-th--sortable {
+        &.th--sortable {
           display: flex;
           align-items: center;
           gap: var(--space-1);
@@ -154,44 +158,44 @@
           }
         }
       }
-      .grid-th-label {
+      .th-label {
         min-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-      .grid-th-sort {
+      .th-sort {
         display: inline-flex;
         align-items: center;
         flex-shrink: 0;
       }
-      .grid-th-sort-icon {
+      .th-sort-icon {
         color: var(--color-text-muted);
         opacity: 0.5;
         transition: opacity var(--transition);
 
-        &.grid-th-sort-icon--active {
+        &.th-sort-icon--active {
           color: var(--color-primary);
           opacity: 1;
         }
       }
     }
 
-    .grid-row {
+    .row {
       border-bottom: 1px solid var(--color-border);
       transition: background var(--transition);
 
       &:last-child {
         border-bottom: none;
       }
-      &.grid-row--clickable {
+      &.row--clickable {
         cursor: pointer;
 
         &:hover {
           background: var(--color-surface-2);
         }
       }
-      &.grid-row--selected {
+      &.row--selected {
         background: var(--color-primary-light);
 
         &:hover {
@@ -199,19 +203,19 @@
         }
       }
 
-      .grid-td {
+      .td {
         padding: var(--space-3) var(--space-4);
         font-size: var(--text-sm);
         color: var(--color-text);
         min-width: 0;
 
-        &.grid-td--actions {
+        &.td--actions {
           text-align: center;
         }
       }
 
       /* El texto de la celda trunca con ellipsis; los slots custom controlan lo suyo. */
-      .grid-td-text {
+      .td-text {
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -220,7 +224,7 @@
     }
   }
 
-  .grid-loading {
+  .loading {
     display: flex;
     align-items: center;
     gap: var(--space-3);
@@ -229,7 +233,7 @@
     color: var(--color-text-muted);
     font-size: var(--text-sm);
 
-    .grid-spinner {
+    .spinner {
       width: 20px;
       height: 20px;
       border: 2px solid var(--color-border);
@@ -240,7 +244,7 @@
   }
 
   /* Estado de error de carga: mensaje + reintento, distinto del estado vacío. */
-  .grid-error {
+  .error {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -248,11 +252,11 @@
     padding: var(--space-12);
     text-align: center;
 
-    .grid-error-msg {
+    .error-msg {
       color: var(--color-danger);
       font-size: var(--text-sm);
     }
-    .grid-error-retry {
+    .error-retry {
       padding: var(--space-2) var(--space-4);
       font-size: var(--text-sm);
       font-weight: 500;
@@ -270,7 +274,7 @@
   }
 
   /* Pie de paginación: selector de tamaño + navegación de páginas. */
-  .grid-pagination {
+  .pagination {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -281,12 +285,12 @@
     font-size: var(--text-sm);
     color: var(--color-text-muted);
 
-    .grid-pagination-size {
+    .pagination-size {
       display: flex;
       align-items: center;
       gap: var(--space-2);
     }
-    .grid-pagination-select {
+    .pagination-select {
       padding: var(--space-1) var(--space-2);
       font-size: var(--text-sm);
       color: var(--color-text);
@@ -301,21 +305,21 @@
         border-color: var(--color-primary);
       }
     }
-    .grid-pagination-nav {
+    .pagination-nav {
       display: flex;
       align-items: center;
       gap: var(--space-2);
     }
-    .grid-pagination-range {
+    .pagination-range {
       margin-right: var(--space-2);
     }
-    .grid-pagination-page {
+    .pagination-page {
       min-width: 3.5em;
       text-align: center;
       color: var(--color-text);
       font-variant-numeric: tabular-nums;
     }
-    .grid-pagination-btn {
+    .pagination-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -337,35 +341,35 @@
       }
     }
   }
-}
+  /* Reglas agrupadas / cross-element: aplican a la cabecera y a las filas a la
+     vez, o combinan dos elementos distintos. Van al final y dentro de la raíz:
+     sin el prefijo `grid-` estos nombres son demasiado genéricos para vivir en
+     el ámbito global. */
+  .head,
+  .row {
+    display: grid;
+    align-items: center;
+  }
 
-/* Reglas agrupadas / cross-element: aplican a .grid-head y .grid-row a la vez,
-   o combinan dos elementos distintos; se quedan a nivel raíz para no alterar
-   su alcance ni su especificidad relativa. */
-.grid-head,
-.grid-row {
-  display: grid;
-  align-items: center;
-}
+  .th--check,
+  .td--check {
+    display: flex;
+    align-items: center;
+    padding-left: var(--space-4);
+  }
 
-.grid-th--check,
-.grid-td--check {
-  display: flex;
-  align-items: center;
-  padding-left: var(--space-4);
-}
+  .th--sortable:hover .th-sort-icon {
+    opacity: 0.8;
+  }
 
-.grid-th--sortable:hover .grid-th-sort-icon {
-  opacity: 0.8;
-}
+  /* Alineación aplicable indistintamente a celdas de cabecera y de cuerpo. */
+  .align-center {
+    text-align: center;
+    justify-content: center;
+  }
 
-/* Alineación aplicable indistintamente a celdas de cabecera y de cuerpo. */
-.grid-align-center {
-  text-align: center;
-  justify-content: center;
-}
-
-.grid-align-right {
-  text-align: right;
-  justify-content: flex-end;
+  .align-right {
+    text-align: right;
+    justify-content: flex-end;
+  }
 }

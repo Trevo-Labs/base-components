@@ -5,8 +5,8 @@
     :class="{ 'copyable-text--copied': copied }"
     @click="copy"
   >
-    <span class="selectable copyable__text">{{ text }}</span>
-    <component :is="copied ? Check : CopyIcon" :size="14" class="copyable__icon" />
+    <span class="selectable text">{{ text }}</span>
+    <component :is="copied ? Check : CopyIcon" :size="14" class="icon" />
   </button>
 </template>
 

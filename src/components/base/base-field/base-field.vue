@@ -1,12 +1,12 @@
 <template>
-  <div class="field-group">
-    <label v-if="label" class="field-label" :for="fieldId">
+  <div class="base-field">
+    <label v-if="label" class="label" :for="fieldId">
       {{ label }}
-      <span v-if="required" class="field-required">*</span>
+      <span v-if="required" class="required">*</span>
     </label>
     <slot />
-    <span v-if="error" class="field-error">{{ error }}</span>
-    <span v-else-if="hint" class="field-hint">{{ hint }}</span>
+    <span v-if="error" class="error">{{ error }}</span>
+    <span v-else-if="hint" class="hint">{{ hint }}</span>
   </div>
 </template>
 

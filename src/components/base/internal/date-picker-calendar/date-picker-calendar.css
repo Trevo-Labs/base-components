@@ -1,22 +1,22 @@
-.date-calendar {
+.date-picker-calendar {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
   width: 280px;
 
-  .date-head {
+  .head {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  .date-title {
+  .title {
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text);
   }
 
-  .date-nav {
+  .nav {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,12 +35,12 @@
     }
   }
 
-  .date-grid {
+  .days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 2px;
 
-    .date-weekday {
+    .weekday {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -50,7 +50,7 @@
       color: var(--color-text-muted);
     }
 
-    .date-day {
+    .day {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -67,17 +67,17 @@
         background: var(--color-surface-2);
       }
 
-      &.date-day--muted {
+      &.day--muted {
         color: var(--color-text-muted);
         opacity: 0.5;
       }
 
-      &.date-day--today {
+      &.day--today {
         font-weight: 700;
         color: var(--color-primary);
       }
 
-      &.date-day--selected {
+      &.day--selected {
         background: var(--color-primary);
         color: var(--color-surface);
         font-weight: 600;

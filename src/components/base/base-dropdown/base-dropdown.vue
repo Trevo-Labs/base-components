@@ -3,8 +3,8 @@
     <button
       ref="trigger"
       type="button"
-      class="dropdown-trigger"
-      :class="{ 'dropdown-trigger--open': open }"
+      class="trigger"
+      :class="{ 'trigger--open': open }"
       :aria-label="label"
       aria-haspopup="menu"
       :aria-expanded="open"
@@ -17,7 +17,7 @@
 
     <Teleport to="body">
       <Transition name="dropdown">
-        <div v-if="open" ref="panel" class="dropdown-menu" role="menu" :style="panelStyle">
+        <div v-if="open" ref="panel" class="base-dropdown-menu" role="menu" :style="panelStyle">
           <slot :close="close" />
         </div>
       </Transition>

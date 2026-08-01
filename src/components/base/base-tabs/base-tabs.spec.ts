@@ -21,9 +21,9 @@ describe('BaseTabs', () => {
     const activo = getByText('Documentos') as HTMLButtonElement
     const inactivo = getByText('General') as HTMLButtonElement
 
-    expect(activo.classList.contains('tab-btn--active')).toBe(true)
+    expect(activo.classList.contains('tab--active')).toBe(true)
     expect(activo.getAttribute('aria-selected')).toBe('true')
-    expect(inactivo.classList.contains('tab-btn--active')).toBe(false)
+    expect(inactivo.classList.contains('tab--active')).toBe(false)
     expect(inactivo.getAttribute('aria-selected')).toBe('false')
   })
 

@@ -6,7 +6,7 @@
           :href="href"
           role="tab"
           :aria-selected="isActive"
-          :class="['tab-btn', { 'tab-btn--active': isActive }]"
+          :class="['tab', { 'tab--active': isActive }]"
           @click="navigate"
         >
           {{ tab.label }}
@@ -17,7 +17,7 @@
         type="button"
         role="tab"
         :aria-selected="modelValue === tab.key"
-        :class="['tab-btn', { 'tab-btn--active': modelValue === tab.key }]"
+        :class="['tab', { 'tab--active': modelValue === tab.key }]"
         @click="emit('update:modelValue', tab.key)"
       >
         {{ tab.label }}

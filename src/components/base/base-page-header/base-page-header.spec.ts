@@ -20,7 +20,7 @@ describe('BasePageHeader', () => {
       props: { title: 'Pacientes' },
       global: { stubs: { RouterLink: routerLinkStub } },
     })
-    expect(container.querySelector('.page-breadcrumb')).toBeNull()
+    expect(container.querySelector('.breadcrumb')).toBeNull()
   })
 
   it('renderiza el breadcrumb con el enlace al padre y el tramo actual cuando se pasa "back"', () => {
@@ -31,12 +31,12 @@ describe('BasePageHeader', () => {
       },
       global: { stubs: { RouterLink: routerLinkStub } },
     })
-    const link = container.querySelector('a.page-breadcrumb-link')
+    const link = container.querySelector('a.breadcrumb-link')
     expect(link).not.toBeNull()
     expect(link?.textContent).toContain('Pacientes')
     expect(link?.getAttribute('href')).toBe('/pacientes')
     // El tramo actual no es clicable
-    expect(getByText('Juan Pérez', { selector: '.page-breadcrumb-current' })).toBeTruthy()
+    expect(getByText('Juan Pérez', { selector: '.breadcrumb-current' })).toBeTruthy()
   })
 
   it('renderiza el contenido del slot "badges"', () => {
@@ -51,7 +51,7 @@ describe('BasePageHeader', () => {
     const { container } = render(BasePageHeader, {
       props: { title: 'Pacientes' },
     })
-    expect(container.querySelector('.page-header-actions')).toBeNull()
+    expect(container.querySelector('.header-actions')).toBeNull()
   })
 
   it('renderiza el contenido del slot "actions" cuando se usa', () => {
@@ -60,6 +60,6 @@ describe('BasePageHeader', () => {
       slots: { actions: '<button>Nuevo</button>' },
     })
     expect(getByText('Nuevo')).toBeTruthy()
-    expect(container.querySelector('.page-header-actions')).not.toBeNull()
+    expect(container.querySelector('.header-actions')).not.toBeNull()
   })
 })

@@ -31,17 +31,17 @@ describe('BaseAlert', () => {
     })
     const titulo = getByText('Atención')
     expect(titulo).toBeTruthy()
-    expect(titulo.classList.contains('alert-title')).toBe(true)
+    expect(titulo.classList.contains('title')).toBe(true)
   })
 
   it('no renderiza el título cuando no se pasa la prop', () => {
     const { container } = render(BaseAlert, { slots: { default: 'x' } })
-    expect(container.querySelector('.alert-title')).toBeNull()
+    expect(container.querySelector('.title')).toBeNull()
   })
 
   it('muestra el icono por defecto', () => {
     const { container } = render(BaseAlert, { slots: { default: 'x' } })
-    expect(container.querySelector('.alert-icon')).not.toBeNull()
+    expect(container.querySelector('.icon')).not.toBeNull()
   })
 
   it('oculta el icono cuando hideIcon es true', () => {
@@ -49,6 +49,6 @@ describe('BaseAlert', () => {
       props: { hideIcon: true },
       slots: { default: 'x' },
     })
-    expect(container.querySelector('.alert-icon')).toBeNull()
+    expect(container.querySelector('.icon')).toBeNull()
   })
 })

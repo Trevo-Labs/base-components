@@ -59,27 +59,27 @@
 
 /* Afijos: texto gris fijo dentro del input (pre/post). Puramente visual,
    no captura clics para que el foco vaya siempre al input. */
-.input-affix {
+.base-input-affix {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
 
-  .input-affix-text {
+  .text {
     position: absolute;
     font-size: var(--text-sm);
     color: var(--color-text-muted);
     pointer-events: none;
 
-    &.input-affix-text--prefix {
+    &.text--prefix {
       left: var(--space-3);
     }
-    &.input-affix-text--suffix {
+    &.text--suffix {
       right: var(--space-3);
     }
   }
 
-  &.input-affix--disabled .input-affix-text {
+  &.base-input-affix--disabled .text {
     opacity: 0.6;
   }
 }

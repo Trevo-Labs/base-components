@@ -83,10 +83,10 @@ describe('KanbanBoard', () => {
     // así que basta con disparar dragstart/drop sin él.
     const { getByText, container, emitted } = renderBoard()
 
-    const card = getByText('Tarea 1').closest('.kanban-item') as HTMLElement
+    const card = getByText('Tarea 1').closest('.item') as HTMLElement
     await fireEvent.dragStart(card)
 
-    const cols = container.querySelectorAll('.kanban-col-body')
+    const cols = container.querySelectorAll('.col-body')
     const doneColumnBody = cols[1] as HTMLElement // "Hecho"
     await fireEvent.drop(doneColumnBody)
 
@@ -95,7 +95,7 @@ describe('KanbanBoard', () => {
 
   it('no emite move-item si se suelta sin haber arrastrado nada', async () => {
     const { container, emitted } = renderBoard()
-    const cols = container.querySelectorAll('.kanban-col-body')
+    const cols = container.querySelectorAll('.col-body')
 
     await fireEvent.drop(cols[1] as HTMLElement)
 
@@ -104,7 +104,7 @@ describe('KanbanBoard', () => {
 
   it('cada columna filtra únicamente sus propios items', () => {
     const { container } = renderBoard()
-    const cols = container.querySelectorAll('.kanban-col')
+    const cols = container.querySelectorAll('.col')
     const todoCol = within(cols[0] as HTMLElement)
     const doneCol = within(cols[1] as HTMLElement)
 
@@ -118,7 +118,7 @@ describe('KanbanBoard', () => {
 
   it('aplica la clase de tarjeta a los items cuando card está activo', () => {
     const { container } = renderBoard({ card: true })
-    expect(container.querySelectorAll('.kanban-item--card').length).toBe(items.length)
+    expect(container.querySelectorAll('.item--card').length).toBe(items.length)
   })
 
   it('pinta la columna con su variante terminal', () => {
@@ -128,8 +128,8 @@ describe('KanbanBoard', () => {
         { key: 'done', label: 'Hecho', variant: 'success' },
       ],
     })
-    const cols = container.querySelectorAll('.kanban-col')
-    expect((cols[1] as HTMLElement).classList.contains('kanban-col--success')).toBe(true)
+    const cols = container.querySelectorAll('.col')
+    expect((cols[1] as HTMLElement).classList.contains('col--success')).toBe(true)
   })
 
   it('renderiza la barra de métricas cuando se pasan stats', () => {
@@ -167,7 +167,7 @@ describe('KanbanBoard', () => {
         { key: 'done', label: 'Hecho', variant: 'success', removable: true },
       ],
     })
-    const botones = container.querySelectorAll('.kanban-col-hide')
+    const botones = container.querySelectorAll('.col-hide')
     expect(botones.length).toBe(1)
   })
 
@@ -178,7 +178,7 @@ describe('KanbanBoard', () => {
         { key: 'done', label: 'Hecho', variant: 'success', removable: true },
       ],
     })
-    await fireEvent.click(container.querySelector('.kanban-col-hide') as HTMLElement)
+    await fireEvent.click(container.querySelector('.col-hide') as HTMLElement)
     expect(emitted()['remove-column']?.[0]).toEqual(['done'])
   })
 })

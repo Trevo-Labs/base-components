@@ -5,21 +5,21 @@
       { 'base-switch--label': $slots.default, 'base-switch--disabled': disabled },
     ]"
   >
-    <span class="switch-control">
+    <span class="control">
       <input
         type="checkbox"
-        class="switch-input"
+        class="input"
         role="switch"
         :checked="modelValue"
         :disabled="disabled"
         v-bind="$attrs"
         @change="emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
       />
-      <span class="switch-track">
-        <span class="switch-thumb" />
+      <span class="track">
+        <span class="thumb" />
       </span>
     </span>
-    <span v-if="$slots.default" class="switch-text"><slot /></span>
+    <span v-if="$slots.default" class="text"><slot /></span>
   </label>
 </template>
 

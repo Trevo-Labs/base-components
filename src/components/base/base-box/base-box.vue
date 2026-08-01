@@ -1,11 +1,11 @@
 <template>
   <div class="base-box">
-    <div v-if="title || $slots.header" class="box-header">
+    <div v-if="title || $slots.header" class="header">
       <slot name="header">
-        <span class="box-title">{{ title }}</span>
+        <span class="title">{{ title }}</span>
       </slot>
     </div>
-    <div v-if="$slots.default" :class="['box-body', { 'box-body--flush': flush }]">
+    <div v-if="$slots.default" :class="['body', { 'body--flush': flush }]">
       <slot />
     </div>
   </div>

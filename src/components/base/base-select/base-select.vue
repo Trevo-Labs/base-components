@@ -1,8 +1,8 @@
 <template>
   <div
     ref="root"
-    class="select-wrapper"
-    :class="[attrsClass, { 'select-wrapper--error': error }]"
+    class="base-select"
+    :class="[attrsClass, { 'base-select--error': error }]"
     :style="attrsStyle"
   >
     <select
@@ -11,7 +11,7 @@
       :value="modelValue"
       :disabled="disabled || readonly"
       :required="required"
-      class="select-native"
+      class="native"
       v-bind="nativeAttrs"
       tabindex="-1"
       aria-hidden="true"
@@ -22,10 +22,7 @@
 
     <button
       type="button"
-      :class="[
-        'select-trigger',
-        { 'select-trigger--open': open, 'select-trigger--readonly': readonly },
-      ]"
+      :class="['trigger', { 'trigger--open': open, 'trigger--readonly': readonly }]"
       :disabled="disabled"
       :aria-disabled="readonly || disabled"
       :aria-expanded="open"
@@ -33,27 +30,23 @@
       @click="toggle"
       @keydown="onTriggerKeydown"
     >
-      <span :class="['select-value', { 'select-value--placeholder': !selectedLabel }]">
+      <span :class="['value', { 'value--placeholder': !selectedLabel }]">
         {{ selectedLabel || placeholder || '—' }}
       </span>
-      <ChevronDown
-        v-if="!readonly"
-        :size="16"
-        :class="['select-chevron', { 'select-chevron--open': open }]"
-      />
+      <ChevronDown v-if="!readonly" :size="16" :class="['chevron', { 'chevron--open': open }]" />
     </button>
 
     <Teleport to="body">
       <Transition name="select-pop">
-        <ul v-if="open" ref="panel" class="select-panel" role="listbox" :style="panelStyle">
+        <ul v-if="open" ref="panel" class="base-select-panel" role="listbox" :style="panelStyle">
           <li
             v-for="opt in options"
             :key="opt.value"
             :class="[
-              'select-option',
+              'option',
               {
-                'select-option--selected': opt.value === modelValue,
-                'select-option--active': opt.value === activeValue,
+                'option--selected': opt.value === modelValue,
+                'option--active': opt.value === activeValue,
               },
             ]"
             role="option"
@@ -61,8 +54,8 @@
             @click="choose(opt.value)"
             @mouseenter="activeValue = opt.value"
           >
-            <span class="select-option-label">{{ opt.label }}</span>
-            <Check v-if="opt.value === modelValue" :size="15" class="select-option-check" />
+            <span class="option-label">{{ opt.label }}</span>
+            <Check v-if="opt.value === modelValue" :size="15" class="option-check" />
           </li>
         </ul>
       </Transition>
@@ -237,7 +230,7 @@ function moveActive(dir: number) {
 
 function scrollActiveIntoView() {
   nextTick(() => {
-    panel.value?.querySelector('.select-option--active')?.scrollIntoView?.({ block: 'nearest' })
+    panel.value?.querySelector('.option--active')?.scrollIntoView?.({ block: 'nearest' })
   })
 }
 

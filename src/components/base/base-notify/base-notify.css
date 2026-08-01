@@ -1,4 +1,4 @@
-.notify-stack {
+.base-notify-stack {
   position: fixed;
   bottom: var(--space-4);
   right: var(--space-4);
@@ -23,7 +23,7 @@
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
 
-    .notify-icon {
+    .icon {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -31,27 +31,27 @@
       margin-top: 1px;
     }
 
-    .notify-body {
+    .body {
       display: flex;
       flex-direction: column;
       gap: 2px;
       flex: 1;
       min-width: 0;
 
-      .notify-title {
+      .title {
         font-size: var(--text-sm);
         font-weight: 600;
         color: var(--color-text);
       }
 
-      .notify-message {
+      .message {
         font-size: var(--text-xs);
         color: var(--color-text-muted);
         line-height: 1.4;
       }
     }
 
-    .notify-close {
+    .close {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -71,28 +71,28 @@
     &.notify--success {
       border-left-color: var(--color-success);
 
-      .notify-icon {
+      .icon {
         color: var(--color-success);
       }
     }
     &.notify--error {
       border-left-color: var(--color-danger);
 
-      .notify-icon {
+      .icon {
         color: var(--color-danger);
       }
     }
     &.notify--info {
       border-left-color: var(--color-info);
 
-      .notify-icon {
+      .icon {
         color: var(--color-info);
       }
     }
     &.notify--warning {
       border-left-color: var(--color-warning);
 
-      .notify-icon {
+      .icon {
         color: var(--color-warning);
       }
     }
@@ -128,7 +128,7 @@
 }
 
 @media (max-width: 480px) {
-  .notify-stack {
+  .base-notify-stack {
     left: var(--space-4);
     right: var(--space-4);
   }

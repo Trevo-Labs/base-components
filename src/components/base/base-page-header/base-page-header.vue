@@ -1,16 +1,16 @@
 <template>
-  <div class="page-header-wrapper">
-    <nav v-if="back" class="page-breadcrumb" aria-label="Ruta de navegación">
-      <RouterLink :to="back.to" class="page-breadcrumb-link">{{ back.label }}</RouterLink>
-      <ChevronRight :size="14" class="page-breadcrumb-sep" aria-hidden="true" />
-      <span class="page-breadcrumb-current" aria-current="page">{{ title }}</span>
+  <div class="base-page-header">
+    <nav v-if="back" class="breadcrumb" aria-label="Ruta de navegación">
+      <RouterLink :to="back.to" class="breadcrumb-link">{{ back.label }}</RouterLink>
+      <ChevronRight :size="14" class="breadcrumb-sep" aria-hidden="true" />
+      <span class="breadcrumb-current" aria-current="page">{{ title }}</span>
     </nav>
-    <div class="page-header">
-      <div class="page-header-left">
-        <h2 class="page-title">{{ title }}</h2>
+    <div class="header">
+      <div class="header-left">
+        <h2 class="title">{{ title }}</h2>
         <slot name="badges" />
       </div>
-      <div v-if="$slots.actions" class="page-header-actions">
+      <div v-if="$slots.actions" class="header-actions">
         <slot name="actions" />
       </div>
     </div>

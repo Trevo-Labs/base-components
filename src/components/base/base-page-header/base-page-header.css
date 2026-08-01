@@ -1,5 +1,5 @@
 /* El espaciado con la sección siguiente lo gobierna el .page-stack de la vista. */
-.page-header-wrapper {
+.base-page-header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -7,14 +7,14 @@
 
   /* Breadcrumb encima del header: enlace al padre + tramo actual (no clicable).
    Alineado a la izquierda con el título de debajo. */
-  .page-breadcrumb {
+  .breadcrumb {
     display: flex;
     align-items: center;
     gap: var(--space-1);
     font-size: var(--text-sm);
     min-width: 0;
 
-    .page-breadcrumb-link {
+    .breadcrumb-link {
       color: var(--color-text-muted);
       font-weight: 500;
       transition: color var(--transition);
@@ -24,12 +24,12 @@
       }
     }
 
-    .page-breadcrumb-sep {
+    .breadcrumb-sep {
       color: var(--color-text-muted);
       flex-shrink: 0;
     }
 
-    .page-breadcrumb-current {
+    .breadcrumb-current {
       color: var(--color-text);
       font-weight: 500;
       white-space: nowrap;
@@ -38,27 +38,27 @@
     }
   }
 
-  .page-header {
+  .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
     width: 100%;
 
-    .page-header-left {
+    .header-left {
       display: flex;
       align-items: center;
       gap: var(--space-3);
       min-width: 0;
 
-      .page-title {
+      .title {
         font-size: var(--text-2xl);
         font-weight: 700;
         color: var(--color-text);
       }
     }
 
-    .page-header-actions {
+    .header-actions {
       display: flex;
       align-items: center;
       gap: var(--space-2);

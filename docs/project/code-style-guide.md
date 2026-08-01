@@ -78,10 +78,17 @@ demás colgando de ella con **nesting nativo** (sin preprocesador):
 **Sin prefijos repetidos.** Dentro de `.base-box` va `.header`, no `.box-header`: la raíz ya
 da el contexto y el prefijo solo alarga el selector.
 
-> ⚠️ **El código todavía no cumple esta regla.** Los 25 componentes vienen del CRM, donde se
-> prefijaba (`.box-header`, `.grid-th`, `.notify-title`). La norma está fijada aquí; propagarla
-> es una pasada de `/neo fix-css` sobre `src/components/base`. Hasta entonces, **en código
-> nuevo aplica la norma** y no copies el patrón viejo.
+Dos excepciones, y por el mismo motivo — que ese elemento **no cuelga de la raíz**:
+
+- **Lo teleportado a `<body>`** lleva nombre único: `.base-select-panel`, `.base-modal-overlay`,
+  `.base-dropdown-menu`, `.base-notify-stack`, `.aside-filters-overlay`. Sus hijos sí van sin
+  prefijo, porque ya cuelgan de ese nombre único.
+- **Las clases que escribe el consumidor dentro de un slot** son API pública y se quedan
+  explícitas: `.dropdown-item`, `.dropdown-divider`, `.dropdown-label`, `.kanban-btn`.
+
+Los **modificadores de la raíz sí llevan el nombre completo**, porque son la misma clase:
+`class="base-badge base-badge--success"`. Los de un hijo pierden el prefijo igual que el hijo:
+`.body--flush`.
 
 Más reglas:
 

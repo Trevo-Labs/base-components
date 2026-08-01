@@ -1,22 +1,22 @@
 <template>
-  <div ref="root" class="time-cols">
-    <div class="time-col">
+  <div ref="root" class="date-picker-time-columns">
+    <div class="col">
       <button
         v-for="h in hours"
         :key="h"
         type="button"
-        :class="['time-cell', { 'time-cell--selected': h === selectedHour }]"
+        :class="['cell', { 'cell--selected': h === selectedHour }]"
         @click="emit('choose-hour', h)"
       >
         {{ pad(h) }}
       </button>
     </div>
-    <div class="time-col">
+    <div class="col">
       <button
         v-for="m in minutes"
         :key="m"
         type="button"
-        :class="['time-cell', { 'time-cell--selected': m === selectedMinute }]"
+        :class="['cell', { 'cell--selected': m === selectedMinute }]"
         @click="emit('choose-minute', m)"
       >
         {{ pad(m) }}
@@ -52,7 +52,7 @@ function pad(n: number): string {
 function scrollSelectedIntoView() {
   nextTick(() => {
     root.value
-      ?.querySelectorAll('.time-cell--selected')
+      ?.querySelectorAll('.cell--selected')
       .forEach((el) => el.scrollIntoView?.({ block: 'center' }))
   })
 }

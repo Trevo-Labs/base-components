@@ -1,14 +1,14 @@
 <template>
-  <div ref="root" class="date-wrapper" :class="attrsClass" :style="attrsStyle">
+  <div ref="root" class="base-date-picker" :class="attrsClass" :style="attrsStyle">
     <button
       :id="id"
       type="button"
       :class="[
-        'date-trigger',
+        'trigger',
         {
-          'date-trigger--open': open,
-          'date-trigger--error': error,
-          'date-trigger--readonly': readonly,
+          'trigger--open': open,
+          'trigger--error': error,
+          'trigger--readonly': readonly,
         },
       ]"
       :disabled="disabled"
@@ -18,21 +18,27 @@
       @click="toggle"
       @keydown="onTriggerKeydown"
     >
-      <span :class="['date-value', { 'date-value--placeholder': !modelValue }]">
+      <span :class="['value', { 'value--placeholder': !modelValue }]">
         {{ modelValue ? formatDisplay(modelValue) : placeholder || placeholderText }}
       </span>
       <component
         v-if="!readonly"
         :is="withTime ? CalendarClock : CalendarDays"
         :size="16"
-        class="date-icon"
+        class="icon"
       />
     </button>
 
     <Teleport to="body">
       <Transition name="date-pop">
-        <div v-if="open" ref="panel" class="date-panel" role="dialog" :style="panelStyle">
-          <div class="date-body">
+        <div
+          v-if="open"
+          ref="panel"
+          class="base-date-picker-panel"
+          role="dialog"
+          :style="panelStyle"
+        >
+          <div class="body">
             <DatePickerCalendar
               :month-label="monthLabel"
               :weekdays="weekdays"
@@ -53,9 +59,9 @@
             />
           </div>
 
-          <div class="date-foot">
-            <button type="button" class="date-action" @click="clear">Borrar</button>
-            <button type="button" class="date-action date-action--primary" @click="chooseNow">
+          <div class="foot">
+            <button type="button" class="action" @click="clear">Borrar</button>
+            <button type="button" class="action action--primary" @click="chooseNow">
               {{ withTime ? 'Ahora' : 'Hoy' }}
             </button>
           </div>

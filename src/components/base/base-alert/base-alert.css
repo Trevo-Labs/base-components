@@ -13,22 +13,22 @@
   border-left-color: var(--alert-accent);
   background: var(--alert-bg);
 
-  .alert-icon {
+  .icon {
     flex-shrink: 0;
     margin-top: 1px;
     color: var(--alert-accent);
   }
-  .alert-body {
+  .body {
     display: flex;
     flex-direction: column;
     gap: 2px;
     min-width: 0;
   }
-  .alert-title {
+  .title {
     font-weight: 600;
     color: var(--alert-accent);
   }
-  .alert-content {
+  .content {
     color: var(--color-text);
   }
 

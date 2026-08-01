@@ -1,4 +1,4 @@
-.aside-overlay {
+.aside-filters-overlay {
   position: fixed;
   inset: 0;
   background: rgb(0 0 0 / 0.4);
@@ -6,7 +6,7 @@
   justify-content: flex-end;
   z-index: var(--z-overlay);
 
-  .aside-panel {
+  .panel {
     width: 100%;
     max-width: 360px;
     height: 100vh;
@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
 
-    .aside-header {
+    .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -23,14 +23,14 @@
       border-bottom: 1px solid var(--color-border);
       flex-shrink: 0;
 
-      .aside-title {
+      .title {
         display: flex;
         align-items: center;
         gap: var(--space-2);
         font-size: var(--text-lg);
         font-weight: 600;
       }
-      .aside-close {
+      .close {
         color: var(--color-text-muted);
         padding: var(--space-1);
         border-radius: var(--radius);
@@ -46,7 +46,7 @@
       }
     }
 
-    .aside-body {
+    .body {
       padding: var(--space-5);
       overflow-y: auto;
       flex: 1;
@@ -54,30 +54,30 @@
       flex-direction: column;
       gap: var(--space-4);
 
-      .aside-checks {
+      .checks {
         display: flex;
         flex-direction: column;
         gap: var(--space-2);
       }
 
-      .aside-daterange {
+      .daterange {
         display: flex;
         align-items: center;
         gap: var(--space-2);
 
-        .aside-daterange-sep {
+        .daterange-sep {
           color: var(--color-text-muted);
           flex-shrink: 0;
         }
       }
 
-      .aside-empty {
+      .empty {
         color: var(--color-text-muted);
         font-size: var(--text-sm);
       }
     }
 
-    .aside-footer {
+    .footer {
       padding: var(--space-4) var(--space-5);
       border-top: 1px solid var(--color-border);
       display: flex;
@@ -86,7 +86,7 @@
       gap: var(--space-3);
       flex-shrink: 0;
 
-      .aside-footer-right {
+      .footer-right {
         display: flex;
         gap: var(--space-2);
       }
@@ -99,15 +99,15 @@
 .aside-leave-active {
   transition: opacity var(--transition);
 }
-.aside-enter-active .aside-panel,
-.aside-leave-active .aside-panel {
+.aside-enter-active .panel,
+.aside-leave-active .panel {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .aside-enter-from,
 .aside-leave-to {
   opacity: 0;
 }
-.aside-enter-from .aside-panel,
-.aside-leave-to .aside-panel {
+.aside-enter-from .panel,
+.aside-leave-to .panel {
   transform: translateX(100%);
 }

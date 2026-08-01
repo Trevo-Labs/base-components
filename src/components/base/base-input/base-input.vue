@@ -12,10 +12,10 @@
   />
   <div
     v-else-if="type !== 'textarea' && (prefix || suffix)"
-    class="input-affix"
-    :class="{ 'input-affix--disabled': disabled }"
+    class="base-input-affix"
+    :class="{ 'base-input-affix--disabled': disabled }"
   >
-    <span v-if="prefix" class="input-affix-text input-affix-text--prefix">{{ prefix }}</span>
+    <span v-if="prefix" class="text text--prefix">{{ prefix }}</span>
     <input
       :id="id"
       :type="type"
@@ -29,7 +29,7 @@
       v-bind="$attrs"
       @input="onInput"
     />
-    <span v-if="suffix" class="input-affix-text input-affix-text--suffix">{{ suffix }}</span>
+    <span v-if="suffix" class="text text--suffix">{{ suffix }}</span>
   </div>
   <input
     v-else-if="type !== 'textarea'"

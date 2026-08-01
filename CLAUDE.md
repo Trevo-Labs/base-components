@@ -82,8 +82,11 @@ proyectos distintos, y no arrastra dependencias nuevas. Si falla alguna, no es b
   `import './base-button.css'`. **Nunca `<style scoped>`.**
 - **Una clase raíz** por componente y todo colgando con **nesting nativo**.
 - **Sin prefijos repetidos**: dentro de `.base-box` va `.header`, no `.box-header`.
-  ⚠️ El código heredado del CRM todavía prefija. En código nuevo aplica la norma; propagarla
-  al resto es una pasada de `/neo fix-css`.
+  Dos excepciones, porque no cuelgan de la raíz: lo teleportado a `<body>` lleva nombre único
+  (`.base-select-panel`), y las clases que escribe el consumidor en un slot son API pública
+  (`.dropdown-item`, `.kanban-btn`).
+- **Los modificadores de la raíz sí llevan el nombre completo** (`.base-badge--success`);
+  los de un hijo, no (`.body--flush`).
 - **Todos los valores desde los tokens** de `variables.css`. Un color suelto es deuda.
 - **Nada de `margin` para layout**: `flex`/`grid` + `gap` + `padding`. Excepciones: resets,
   `margin-inline: auto` y ajustes ópticos de 1-2 px con comentario.

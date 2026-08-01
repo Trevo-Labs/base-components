@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <TransitionGroup tag="div" name="notify" class="notify-stack">
+    <TransitionGroup tag="div" name="notify" class="base-notify-stack">
       <div
         v-for="n in notifications"
         :key="n.id"
@@ -8,14 +8,14 @@
         :class="`notify--${n.type}`"
         role="alert"
       >
-        <span class="notify-icon">
+        <span class="icon">
           <component :is="iconFor(n.type)" :size="18" />
         </span>
-        <div class="notify-body">
-          <span class="notify-title">{{ n.title ?? titleFor(n.type) }}</span>
-          <span class="notify-message">{{ n.message }}</span>
+        <div class="body">
+          <span class="title">{{ n.title ?? titleFor(n.type) }}</span>
+          <span class="message">{{ n.message }}</span>
         </div>
-        <button class="notify-close" aria-label="Cerrar" @click="dismiss(n.id)">
+        <button class="close" aria-label="Cerrar" @click="dismiss(n.id)">
           <X :size="15" />
         </button>
       </div>

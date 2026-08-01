@@ -10,12 +10,12 @@ Vive en `~/.claude/skills/neo`, así que está disponible en todos los proyectos
 
 **Refactor**
 
-| Comando | Qué hace |
-|---|---|
-| `/neo refactor` | Pasada completa sobre lo que esté sucio en git |
-| `/neo refactor <ruta>` | Pasada completa sobre esa carpeta o archivo |
+| Comando                  | Qué hace                                           |
+| ------------------------ | -------------------------------------------------- |
+| `/neo refactor`          | Pasada completa sobre lo que esté sucio en git     |
+| `/neo refactor <ruta>`   | Pasada completa sobre esa carpeta o archivo        |
 | `/neo refactor-frontend` | Toda la capa cliente, pasando las 9 fases seguidas |
-| `/neo refactor-backend` | Solo la capa servidor: Node/Express, Supabase |
+| `/neo refactor-backend`  | Solo la capa servidor: Node/Express, Supabase      |
 
 `/neo <ruta>` sin la palabra `refactor` también vale: si parece una ruta que
 existe, se entiende.
@@ -24,7 +24,7 @@ existe, se entiende.
 sobre `src/` en este orden, y ninguno se salta.
 
 1. código muerto → 2. tipado → 3. complejidad → 4. duplicación → 5. CSS →
-6. rendimiento → 7. estructura → 8. nomenclatura → 9. dependencias
+2. rendimiento → 7. estructura → 8. nomenclatura → 9. dependencias
 
 El orden no es capricho: primero se tira lo que sobra, luego se simplifica, y
 lo que mueve o renombra archivos va al final, con el contenido ya estable. Se
@@ -32,29 +32,29 @@ aplica y verifica fase a fase, con un commit propuesto por fase.
 
 **Arranque y documentación**
 
-| Comando | Qué hace |
-|---|---|
-| `/neo init` | Entrevista el proyecto y genera los docs de base en `docs/` |
-| `/neo sync-docs` | Reescanea y actualiza esos docs |
+| Comando          | Qué hace                                                    |
+| ---------------- | ----------------------------------------------------------- |
+| `/neo init`      | Entrevista el proyecto y genera los docs de base en `docs/` |
+| `/neo sync-docs` | Reescanea y actualiza esos docs                             |
 
 **Diagnóstico**
 
-| Comando | Qué hace |
-|---|---|
+| Comando          | Qué hace                             |
+| ---------------- | ------------------------------------ |
 | `/neo scan-only` | Solo analiza y reporta, no toca nada |
 
 **Focalizados** — una categoría cada uno
 
-| Comando | Qué hace |
-|---|---|
-| `/neo clean-dead-code` | Código muerto |
+| Comando                    | Qué hace                                       |
+| -------------------------- | ---------------------------------------------- |
+| `/neo clean-dead-code`     | Código muerto                                  |
 | `/neo extract-duplication` | Duplicación → componentes, composables, tokens |
-| `/neo fix-naming` | Nomenclatura |
-| `/neo fix-structure` | Estructura de carpetas y componentización |
-| `/neo fix-css` | CSS: tokens, nesting, clase raíz, layout |
-| `/neo fix-types` | Tipado TypeScript |
-| `/neo improve-performance` | Rendimiento |
-| `/neo prune-dependencies` | Dependencias sin usar, duplicadas o pesadas |
+| `/neo fix-naming`          | Nomenclatura                                   |
+| `/neo fix-structure`       | Estructura de carpetas y componentización      |
+| `/neo fix-css`             | CSS: tokens, nesting, clase raíz, layout       |
+| `/neo fix-types`           | Tipado TypeScript                              |
+| `/neo improve-performance` | Rendimiento                                    |
+| `/neo prune-dependencies`  | Dependencias sin usar, duplicadas o pesadas    |
 
 Los modos focalizados dan diffs de una sola intención, mucho más fáciles de revisar que una pasada completa. Para una zona grande, mejor encadenarlos que un `/neo refactor` gigante — que es exactamente lo que hace `refactor-frontend` por ti.
 
@@ -83,13 +83,13 @@ No hace falta clavar el nombre. Si escribes uno antiguo (`dead`, `dupe`, `perf`.
 
 En `docs/project/`, que es donde Neo lee y escribe:
 
-| Archivo | Para qué |
-|---|---|
-| `code-style-guide.md` | Convenciones de código. Neo las aplica. |
-| `architecture.md` | Dónde va cada cosa. Responde "tengo que añadir X, ¿dónde?" |
-| `infrastructure.md` | Dependencias, servicios externos, entorno, despliegue. |
-| `decisions.md` | Decisiones técnicas y por qué. Solo se añade, no se reescribe. |
-| `refactors/<fecha>-<capa>.md` | Qué hizo cada pasada grande. |
+| Archivo                       | Para qué                                                       |
+| ----------------------------- | -------------------------------------------------------------- |
+| `code-style-guide.md`         | Convenciones de código. Neo las aplica.                        |
+| `architecture.md`             | Dónde va cada cosa. Responde "tengo que añadir X, ¿dónde?"     |
+| `infrastructure.md`           | Dependencias, servicios externos, entorno, despliegue.         |
+| `decisions.md`                | Decisiones técnicas y por qué. Solo se añade, no se reescribe. |
+| `refactors/<fecha>-<capa>.md` | Qué hizo cada pasada grande.                                   |
 
 Si cambias las convenciones, edita `code-style-guide.md`: manda sobre los valores por defecto de la skill.
 

@@ -38,11 +38,12 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.entity-form .field-group,
+/* Los controles de formulario ocupan el ancho de su celda del grid. */
+.entity-form .base-field,
 .entity-form .base-input,
-.entity-form .input-affix,
-.entity-form .select-wrapper,
-.entity-form .date-wrapper {
+.entity-form .base-input-affix,
+.entity-form .base-select,
+.entity-form .base-date-picker {
   width: 100%;
 }
 

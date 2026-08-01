@@ -1,5 +1,10 @@
 <template>
-  <div :class="['empty-state', { 'empty-state--compact': compact, 'empty-state--panel': panel }]">
+  <div
+    :class="[
+      'base-empty-state',
+      { 'base-empty-state--compact': compact, 'base-empty-state--panel': panel },
+    ]"
+  >
     <slot name="icon" />
     <p v-if="text">{{ text }}</p>
     <slot />

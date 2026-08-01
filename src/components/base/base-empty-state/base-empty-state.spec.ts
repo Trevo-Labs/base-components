@@ -27,27 +27,27 @@ describe('BaseEmptyState', () => {
     expect(getByText('Reintentar')).toBeTruthy()
   })
 
-  it('renderiza un div con la clase base empty-state', () => {
+  it('renderiza un div con la clase base base-empty-state', () => {
     const { container } = render(BaseEmptyState)
-    expect(container.querySelector('div.empty-state')).not.toBeNull()
+    expect(container.querySelector('div.base-empty-state')).not.toBeNull()
   })
 
   it('no aplica los modificadores compact ni panel por defecto', () => {
     const { container } = render(BaseEmptyState)
-    const root = container.querySelector('.empty-state') as HTMLElement
-    expect(root.classList.contains('empty-state--compact')).toBe(false)
-    expect(root.classList.contains('empty-state--panel')).toBe(false)
+    const root = container.querySelector('.base-empty-state') as HTMLElement
+    expect(root.classList.contains('base-empty-state--compact')).toBe(false)
+    expect(root.classList.contains('base-empty-state--panel')).toBe(false)
   })
 
-  it('aplica la clase empty-state--compact cuando compact es true', () => {
+  it('aplica la clase base-empty-state--compact cuando compact es true', () => {
     const { container } = render(BaseEmptyState, { props: { compact: true } })
-    const root = container.querySelector('.empty-state') as HTMLElement
-    expect(root.classList.contains('empty-state--compact')).toBe(true)
+    const root = container.querySelector('.base-empty-state') as HTMLElement
+    expect(root.classList.contains('base-empty-state--compact')).toBe(true)
   })
 
-  it('aplica la clase empty-state--panel cuando panel es true', () => {
+  it('aplica la clase base-empty-state--panel cuando panel es true', () => {
     const { container } = render(BaseEmptyState, { props: { panel: true } })
-    const root = container.querySelector('.empty-state') as HTMLElement
-    expect(root.classList.contains('empty-state--panel')).toBe(true)
+    const root = container.querySelector('.base-empty-state') as HTMLElement
+    expect(root.classList.contains('base-empty-state--panel')).toBe(true)
   })
 })

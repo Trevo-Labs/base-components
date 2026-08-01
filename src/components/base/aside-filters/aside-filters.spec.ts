@@ -139,7 +139,7 @@ describe('AsideFilters', () => {
   it('el click en el overlay cierra el panel', async () => {
     const { baseElement, emitted } = renderAside()
 
-    const overlay = baseElement.querySelector('.aside-overlay') as HTMLElement
+    const overlay = baseElement.querySelector('.aside-filters-overlay') as HTMLElement
     await fireEvent.click(overlay)
 
     expect(emitted()['update:modelValue']?.[0]).toEqual([false])

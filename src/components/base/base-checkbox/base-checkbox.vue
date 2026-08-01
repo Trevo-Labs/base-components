@@ -3,13 +3,13 @@
     <input
       ref="input"
       type="checkbox"
-      class="checkbox-input"
+      class="input"
       :checked="modelValue"
       :disabled="disabled"
       v-bind="$attrs"
       @change="emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
     />
-    <span v-if="$slots.default" class="checkbox-text"><slot /></span>
+    <span v-if="$slots.default" class="text"><slot /></span>
   </label>
 </template>
 

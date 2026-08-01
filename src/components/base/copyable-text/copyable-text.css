@@ -14,12 +14,12 @@
     background: var(--color-surface-2);
   }
 
-  .copyable__icon {
+  .icon {
     flex-shrink: 0;
     color: var(--color-text-muted);
   }
 
-  &.copyable-text--copied .copyable__icon {
+  &.copyable-text--copied .icon {
     color: var(--color-success);
   }
 }
