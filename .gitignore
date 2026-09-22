@@ -15,3 +15,11 @@ coverage
 logs
 *.log
 npm-debug.log*
+
+# Secretos y entorno
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
