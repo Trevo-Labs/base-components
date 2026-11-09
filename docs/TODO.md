@@ -16,7 +16,7 @@ Formato:
 
 ## Cuentas, claves y accesos
 
-- [ ] Crear el repositorio remoto · GitLab o GitHub · decidir cuál y crearlo; el push lo hago yo cuando exista · [2026-08-01]
+Ninguno ahora mismo.
 
 ## Decisiones
 
